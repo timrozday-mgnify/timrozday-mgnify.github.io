@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="./favicon.ico" />
+    <!-- Preload is necessary because we show these images when we disconnect from the server,
+    but at that point we cannot load these images from the server -->
+    <link rel="preload" href="./assets/gradient-yHQUC_QB.png" as="image" />
+    <link rel="preload" href="./assets/noise-60BoTA8O.png" as="image" />
+    <!-- Preload the fonts -->
+    <link rel="preload" href="./assets/Lora-VariableFont_wght-CZceb_kH.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/PTSans-Regular-Bam3NpBI.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/PTSans-Bold-C_DwAp7Z.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/FiraMono-Regular-CEsLFVD9.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/FiraMono-Medium-D5MAsWEG.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/FiraMono-Bold-C6PDArdf.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="a marimo app" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <link rel="manifest" href="./manifest.json" />
+
+    <script data-marimo="true">
+      function __resizeIframe(obj) {
+        const scrollbarHeight = 20; // Max between windows, mac, and linux
+
+        function setHeight() {
+          // Guard against race condition where iframe isn't ready
+          if (!obj.contentWindow?.document?.documentElement) {
+            return;
+          }
+          const element = obj.contentWindow.document.documentElement;
+          // If there is no vertical scrollbar, we don't need to resize the iframe
+          if (element.scrollHeight === element.clientHeight) {
+            return;
+          }
+
+          // Create a new height that includes the scrollbar height if it's visible
+          const hasHorizontalScrollbar = element.scrollWidth > element.clientWidth;
+          const newHeight = element.scrollHeight + (hasHorizontalScrollbar ? scrollbarHeight : 0);
+
+          // Only update the height if it's different from the current height
+          if (obj.style.height !== `${newHeight}px`) {
+            obj.style.height = `${newHeight}px`;
+          }
+        }
+
+        // Resize the iframe to the height of the content and bottom scrollbar height
+        setHeight();
+
+        // Resize the iframe when the content changes
+        const resizeObserver = new ResizeObserver((_entries) => {
+          setHeight();
+        });
+        // Only observe if iframe content is ready
+        if (obj.contentWindow?.document?.body) {
+          resizeObserver.observe(obj.contentWindow.document.body);
+        }
+      }
+    </script>
+    <marimo-filename hidden>notebook.py</marimo-filename>
+    <!-- TODO(Trevor): Legacy, required by VS Code plugin. Remove when plugin is updated (see marimo/server/_templates/template.py) -->
+    <marimo-version data-version="{{ version }}" hidden></marimo-version>
+    <marimo-user-config data-config="{{ user_config }}" hidden></marimo-user-config>
+    <marimo-server-token data-token="{{ server_token }}" hidden></marimo-server-token>
+    <!-- /TODO -->
+    <title>RQ3: find samples with a taxon</title>
+    <script type="module" crossorigin src="./assets/index-s-M1OXjs.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/rolldown-runtime-B0Z9INg1.js">
+    <link rel="modulepreload" crossorigin href="./assets/react-DVplv7_D.js">
+    <link rel="modulepreload" crossorigin href="./assets/compiler-runtime-BrajqUja.js">
+    <link rel="modulepreload" crossorigin href="./assets/useEvent-Dfcbgjhg.js">
+    <link rel="modulepreload" crossorigin href="./assets/react-dom-_LrxgvjW.js">
+    <link rel="modulepreload" crossorigin href="./assets/schemas-Dv42wLFq.js">
+    <link rel="modulepreload" crossorigin href="./assets/isObject-BCaOs5rp.js">
+    <link rel="modulepreload" crossorigin href="./assets/isSymbol-oX0TOjjx.js">
+    <link rel="modulepreload" crossorigin href="./assets/now-Cmx0b_zA.js">
+    <link rel="modulepreload" crossorigin href="./assets/debounce-aFmHgJZY.js">
+    <link rel="modulepreload" crossorigin href="./assets/isArrayLikeObject-DnwgSs_Z.js">
+    <link rel="modulepreload" crossorigin href="./assets/_baseMerge-CQpUq7ep.js">
+    <link rel="modulepreload" crossorigin href="./assets/objects-snlMn4yk.js">
+    <link rel="modulepreload" crossorigin href="./assets/useEventListener-D9cftcHj.js">
+    <link rel="modulepreload" crossorigin href="./assets/invariant-Ci2dTZ72.js">
+    <link rel="modulepreload" crossorigin href="./assets/config-VPSq73n8.js">
+    <link rel="modulepreload" crossorigin href="./assets/utils-B4K466FK.js">
+    <link rel="modulepreload" crossorigin href="./assets/session-DqoWmb7X.js">
+    <link rel="modulepreload" crossorigin href="./assets/Deferred-CrTnjj37.js">
+    <link rel="modulepreload" crossorigin href="./assets/config-DX8Y2WbJ.js">
+    <link rel="modulepreload" crossorigin href="./assets/clsx-DB0hHKMi.js">
+    <link rel="modulepreload" crossorigin href="./assets/cn-ldLVeaqm.js">
+    <link rel="modulepreload" crossorigin href="./assets/jsx-runtime-B74pBk57.js">
+    <link rel="modulepreload" crossorigin href="./assets/fullscreen-B9tHcfpV.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-iaThVDkA.js">
+    <link rel="modulepreload" crossorigin href="./assets/menu-items-BrwnTgyK.js">
+    <link rel="modulepreload" crossorigin href="./assets/use-restore-focus-BxEGwIbk.js">
+    <link rel="modulepreload" crossorigin href="./assets/createLucideIcon-DfJ2oMlA.js">
+    <link rel="modulepreload" crossorigin href="./assets/circle-DXf-VWZG.js">
+    <link rel="modulepreload" crossorigin href="./assets/button-COI-NGrx.js">
+    <link rel="modulepreload" crossorigin href="./assets/check-BQNapYaf.js">
+    <link rel="modulepreload" crossorigin href="./assets/I18nProvider-Cg2I_s1_.js">
+    <link rel="modulepreload" crossorigin href="./assets/useNumberFormatter-D7O_26UI.js">
+    <link rel="modulepreload" crossorigin href="./assets/select-DTBn5eTb.js">
+    <link rel="modulepreload" crossorigin href="./assets/toast-BGzLGnvw.js">
+    <link rel="modulepreload" crossorigin href="./assets/tooltip-C9TuY18o.js">
+    <link rel="modulepreload" crossorigin href="./assets/paths-bkIFVj8h.js">
+    <link rel="modulepreload" crossorigin href="./assets/useLifecycle-Mq4gc5kS.js">
+    <link rel="modulepreload" crossorigin href="./assets/toDate-DOj9Q6uC.js">
+    <link rel="modulepreload" crossorigin href="./assets/database-zap-B_PMVg8T.js">
+    <link rel="modulepreload" crossorigin href="./assets/alert-dialog-BaPGzeOK.js">
+    <link rel="modulepreload" crossorigin href="./assets/arrays-BqUx5USx.js">
+    <link rel="modulepreload" crossorigin href="./assets/once-Haz_uxEL.js">
+    <link rel="modulepreload" crossorigin href="./assets/numbers-Mk3-CcoU.js">
+    <link rel="modulepreload" crossorigin href="./assets/useDebounce-B_ccBZTp.js">
+    <link rel="modulepreload" crossorigin href="./assets/input-BoBxR50a.js">
+    <link rel="modulepreload" crossorigin href="./assets/use-toast-Wu434mLr.js">
+    <link rel="modulepreload" crossorigin href="./assets/requests-lt0JK8Jt.js">
+    <link rel="modulepreload" crossorigin href="./assets/uuid-k9DpjH68.js">
+    <link rel="modulepreload" crossorigin href="./assets/write-secret-modal-DzKAInL2.js">
+    <link rel="modulepreload" crossorigin href="./assets/plus-C5silF6g.js">
+    <link rel="modulepreload" crossorigin href="./assets/trash-2-DcgaW8fn.js">
+    <link rel="modulepreload" crossorigin href="./assets/preload-helper-uBIymjUX.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-Cny7_yZb.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-DBMV4gqt.js">
+    <link rel="modulepreload" crossorigin href="./assets/capabilities-BJvf-MD4.js">
+    <link rel="modulepreload" crossorigin href="./assets/cjs-C49f7GXV.js">
+    <link rel="modulepreload" crossorigin href="./assets/createReducer-DgRODTW6.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-qhAY4L2r.js">
+    <link rel="modulepreload" crossorigin href="./assets/marked.esm-B_3iMIUq.js">
+    <link rel="modulepreload" crossorigin href="./assets/strings-B2vv-ENv.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-BOfh4hMd.js">
+    <link rel="modulepreload" crossorigin href="./assets/badge-crT3E0Rm.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-DtH-7lot.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-BmExfiwX.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-1tmpVXyz.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-LSsCJjA3.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-DusFODSa.js">
+    <link rel="modulepreload" crossorigin href="./assets/stex-Dc5bKD4z.js">
+    <link rel="modulepreload" crossorigin href="./assets/useTheme-COhSHkCj.js">
+    <link rel="modulepreload" crossorigin href="./assets/useAsyncData-C7aJJz0Y.js">
+    <link rel="modulepreload" crossorigin href="./assets/purify.es--06brOip.js">
+    <link rel="modulepreload" crossorigin href="./assets/cells-BRkCaSsh.js">
+    <link rel="modulepreload" crossorigin href="./assets/coerce-CpE6kUdX.js">
+    <link rel="modulepreload" crossorigin href="./assets/get-DjNf4SIX.js">
+    <link rel="modulepreload" crossorigin href="./assets/_hasPath-BmRQipI0.js">
+    <link rel="modulepreload" crossorigin href="./assets/hasIn-yw4sIeJR.js">
+    <link rel="modulepreload" crossorigin href="./assets/_baseSet-Bpdo9AvU.js">
+    <link rel="modulepreload" crossorigin href="./assets/pick-DKIID_Mo.js">
+    <link rel="modulepreload" crossorigin href="./assets/state-BAJYRhmO.js">
+    <link rel="modulepreload" crossorigin href="./assets/state-C3oDoyFe.js">
+    <link rel="modulepreload" crossorigin href="./assets/LazyAnyLanguageCodeMirror-CKcCbG2G.js">
+    <link rel="modulepreload" crossorigin href="./assets/copy-D8O_CYCG.js">
+    <link rel="modulepreload" crossorigin href="./assets/micromark-factory-space-D9Dr-k4J.js">
+    <link rel="modulepreload" crossorigin href="./assets/chunk-YOKDWASO-BIpRENEC.js">
+    <link rel="modulepreload" crossorigin href="./assets/markdown-renderer-BG3sp2rs.js">
+    <link rel="modulepreload" crossorigin href="./assets/copy-Djr5m5ac.js">
+    <link rel="modulepreload" crossorigin href="./assets/copy-icon-BIiRXh_3.js">
+    <link rel="modulepreload" crossorigin href="./assets/useRunCells-B2vUhREg.js">
+    <link rel="modulepreload" crossorigin href="./assets/RenderHTML-BbOqmHy3.js">
+    <link rel="modulepreload" crossorigin href="./assets/blob-D5nfNHOo.js">
+    <link rel="modulepreload" crossorigin href="./assets/kbd-pdKBv96t.js">
+    <link rel="modulepreload" crossorigin href="./assets/useInstallPackage-iX1eufdl.js">
+    <link rel="modulepreload" crossorigin href="./assets/errors-DCrsa1nH.js">
+    <link rel="modulepreload" crossorigin href="./assets/api-BeC_VSGv.js">
+    <link rel="modulepreload" crossorigin href="./assets/share-BZW3tzEX.js">
+    <link rel="modulepreload" crossorigin href="./assets/events-CbeVJ6OD.js">
+    <link rel="modulepreload" crossorigin href="./assets/state-_Qai_QyX.js">
+    <link rel="modulepreload" crossorigin href="./assets/pair-CaQyK6En.js">
+    <link rel="modulepreload" crossorigin href="./assets/ErrorBoundary-Gl5nCA8C.js">
+    <link rel="modulepreload" crossorigin href="./assets/config-BOKzA3tF.js">
+    <link rel="modulepreload" crossorigin href="./assets/chevron-right-eAtVhbNZ.js">
+    <link rel="modulepreload" crossorigin href="./assets/dropdown-menu-C1rnl-0o.js">
+    <link rel="modulepreload" crossorigin href="./assets/html-to-image-DK9Zl1lU.js">
+    <link rel="modulepreload" crossorigin href="./assets/download-DCJXy66H.js">
+    <link rel="modulepreload" crossorigin href="./assets/switch-CTaiAjrz.js">
+    <link rel="modulepreload" crossorigin href="./assets/tabs-BuQlZFbt.js">
+    <link rel="modulepreload" crossorigin href="./assets/table-DG7Ap4H4.js">
+    <link rel="modulepreload" crossorigin href="./assets/eye-off-CxVozGAC.js">
+    <link rel="modulepreload" crossorigin href="./assets/refresh-cw-Qw1f8Jhy.js">
+    <link rel="modulepreload" crossorigin href="./assets/tree-actions-GM5E_bUs.js">
+    <link rel="modulepreload" crossorigin href="./assets/ellipsis-63DyBLHQ.js">
+    <link rel="modulepreload" crossorigin href="./assets/external-link-UrX9KO36.js">
+    <link rel="modulepreload" crossorigin href="./assets/spinner-DyNE-o8o.js">
+    <link rel="modulepreload" crossorigin href="./assets/message-circle-C3rKm8_a.js">
+    <link rel="modulepreload" crossorigin href="./assets/hat-glasses-C8RhSVii.js">
+    <link rel="modulepreload" crossorigin href="./assets/package-GSoSTiIK.js">
+    <link rel="modulepreload" crossorigin href="./assets/datasource-Cq6x_5ML.js">
+    <link rel="modulepreload" crossorigin href="./assets/alert-DTaqCu_d.js">
+    <link rel="modulepreload" crossorigin href="./assets/state-XsPO8hNi.js">
+    <link rel="modulepreload" crossorigin href="./assets/cell-link-LSth_8hT.js">
+    <link rel="modulepreload" crossorigin href="./assets/MarimoErrorOutput-D60XkCny.js">
+    <link rel="modulepreload" crossorigin href="./assets/useDateFormatter-DA-62E-Y.js">
+    <link rel="modulepreload" crossorigin href="./assets/en-US-Buu61juQ.js">
+    <link rel="modulepreload" crossorigin href="./assets/isValid-q_Ad80ug.js">
+    <link rel="modulepreload" crossorigin href="./assets/dates-BbFQ2oE4.js">
+    <link rel="modulepreload" crossorigin href="./assets/defaultLocale-CNPGWpMu.js">
+    <link rel="modulepreload" crossorigin href="./assets/precisionRound-Bq_nmf5u.js">
+    <link rel="modulepreload" crossorigin href="./assets/defaultLocale-D5bOh7g6.js">
+    <link rel="modulepreload" crossorigin href="./assets/vega-loader.browser-CLRkNgm7.js">
+    <link rel="modulepreload" crossorigin href="./assets/tooltip-mT3CGest.js">
+    <link rel="modulepreload" crossorigin href="./assets/react-icons.esm-D6tfmvq8.js">
+    <link rel="modulepreload" crossorigin href="./assets/extends-CvVTau-c.js">
+    <link rel="modulepreload" crossorigin href="./assets/objectWithoutPropertiesLoose-Do6ywDBO.js">
+    <link rel="modulepreload" crossorigin href="./assets/useIframeCapabilities-CwTkczVN.js">
+    <link rel="modulepreload" crossorigin href="./assets/error-banner-Cd69vvyX.js">
+    <link rel="modulepreload" crossorigin href="./assets/utils-CaQYvazl.js">
+    <link rel="modulepreload" crossorigin href="./assets/formats-yZ06h1Pl.js">
+    <link rel="modulepreload" crossorigin href="./assets/table-vrvqpuKJ.js">
+    <link rel="modulepreload" crossorigin href="./assets/react-resizable-panels.browser.esm-Dbe0MrFr.js">
+    <link rel="modulepreload" crossorigin href="./assets/JsonOutput-D6HIIsCb.js">
+    <link rel="modulepreload" crossorigin href="./assets/chart-no-axes-column-C4_v6fQW.js">
+    <link rel="modulepreload" crossorigin href="./assets/square-function-_W_Lo0P4.js">
+    <link rel="modulepreload" crossorigin href="./assets/spec-BfSBcO5B.js">
+    <link rel="modulepreload" crossorigin href="./assets/semaphore-BjoL5P0h.js">
+    <link rel="modulepreload" crossorigin href="./assets/fileToBase64-BgBraYAr.js">
+    <link rel="modulepreload" crossorigin href="./assets/useBoolean-BDD6_xQQ.js">
+    <link rel="modulepreload" crossorigin href="./assets/code-xml-SQaZqvcO.js">
+    <link rel="modulepreload" crossorigin href="./assets/file-headphone-Dl35U6h3.js">
+    <link rel="modulepreload" crossorigin href="./assets/file-BPBVl9pl.js">
+    <link rel="modulepreload" crossorigin href="./assets/image-wZvTj8WY.js">
+    <link rel="modulepreload" crossorigin href="./assets/file-icons-CdJgUy-I.js">
+    <link rel="modulepreload" crossorigin href="./assets/globe-UdPdIbF7.js">
+    <link rel="modulepreload" crossorigin href="./assets/esm-CI_o7NhW.js">
+    <link rel="modulepreload" crossorigin href="./assets/useAddCell-GR7eEQrT.js">
+    <link rel="modulepreload" crossorigin href="./assets/readonly-python-code-DCSMIsTX.js">
+    <link rel="modulepreload" crossorigin href="./assets/data-grid-types-DgHVN_Zz.js">
+    <link rel="modulepreload" crossorigin href="./assets/glide-utils-CIrAxdjv.js">
+    <link rel="modulepreload" crossorigin href="./assets/column-preview-Cm2D6vyX.js">
+    <link rel="modulepreload" crossorigin href="./assets/square-BPmgQFnh.js">
+    <link rel="modulepreload" crossorigin href="./assets/triangle-alert-DmIqR8sY.js">
+    <link rel="modulepreload" crossorigin href="./assets/prop-types-Djf4O40e.js">
+    <link rel="modulepreload" crossorigin href="./assets/es-Cqst59WX.js">
+    <link rel="modulepreload" crossorigin href="./assets/package-data-dv4FBHxR.js">
+    <link rel="modulepreload" crossorigin href="./assets/markdown-export-DzhB1FrN.js">
+    <link rel="modulepreload" crossorigin href="./assets/renderShortcut-BkVJQ_Zh.js">
+    <link rel="modulepreload" crossorigin href="./assets/bundle.esm-D3tw5rqW.js">
+    <link rel="modulepreload" crossorigin href="./assets/icons-CiZ_8zS-.js">
+    <link rel="modulepreload" crossorigin href="./assets/useDeepCompareMemoize-DFIVN9dn.js">
+    <link rel="modulepreload" crossorigin href="./assets/pathUtils-DPmlLd-r.js">
+    <link rel="modulepreload" crossorigin href="./assets/floating-outline-XD9FAV-f.js">
+    <link rel="stylesheet" crossorigin href="./assets/cells-0PFKL3SH.css">
+    <link rel="stylesheet" crossorigin href="./assets/markdown-renderer-DjIHoF9Z.css">
+    <link rel="stylesheet" crossorigin href="./assets/JsonOutput-B0GmlMnR.css">
+    <link rel="stylesheet" crossorigin href="./assets/index-Bcdzex-3.css">
+  <marimo-wasm hidden=""></marimo-wasm>
+    <script>
+        if (window.location.protocol === 'file:') {
+            alert('Warning: This file must be served by an HTTP server to function correctly.');
+        }
+    </script>
+    
+    <style>
+        #save-button {
+            display: none !important;
+        }
+        #filename-input {
+            display: none !important;
+        }
+    </style>
+    
+<script data-marimo="true">
+    Object.defineProperty(window, "__MARIMO_EXPORT_CONTEXT__", {
+        value: Object.freeze({
+            trusted: true,
+            notebookCode: "# /// script\n# dependencies = [\"mgnify_helpers @ ../public/wheels/mgnify_helpers-0.0.0%2Bmarimo.4914c1540b69-py3-none-any.whl\"]\n# ///\n\nimport marimo\n\n__generated_with = \"0.25.2\"\napp = marimo.App(width=\"medium\", app_title=\"RQ3: find samples with a taxon\")\n\n\n@app.cell(hide_code=True)\ndef _(mo):\n    mo.md(r\"\"\"\n    # RQ3. Which samples are likely to contain a taxon of interest?\n\n    MGnify has no taxon search for raw-read results. The route is: find the studies, download their taxonomy tables (study summary, or one file per run), and filter. All MGnify access is through mgnipy (`mgnify_helpers.py`); ENA and the paper are used to check surprising hits.\n\n    Rules of thumb:\n    - Match on the **rank** (`g__Klebsiella`), not a substring.\n    - Report **counts and depth**, not only relative abundance. Absence at low counts isn't evidence of absence.\n    - Check mOTUs against SILVA SSU. mOTUs can't see eukaryotes.\n    - Read the metadata before believing a hit.\n    \"\"\")\n    return\n\n\n@app.cell(hide_code=True)\nasync def _():\n    # Browser (WASM) setup: makes mgnipy run in Pyodide. Does nothing in a normal Python install.\n    # Background: notebooks/wasm/README.md. Serve the export from http://localhost:8000 (on the\n    # MGnify API's CORS allowlist), or set PROXY to a CORS proxy for the MGnify API.\n    import sys\n\n    PROXY = None\n\n    async def _bootstrap():\n        import io, site, tarfile, types, zipfile\n        from pathlib import Path\n\n        import marimo as mo\n        import micropip\n\n        await micropip.install([\n            \"aiofiles\", \"anndata\", \"async-lru\", \"attrs\", \"bigtree\", \"httpx\", \"h2\", \"ijson\",\n            \"pandas\", \"platformdirs\", \"polars\", \"pyarrow\", \"pydantic\", \"pydantic-settings\",\n            \"python-dateutil\", \"pyyaml\", \"requests\", \"scipy\", \"tqdm\", \"matplotlib\", \"pyodide-http\",\n        ])\n        # mgnipy has no wheel on PyPI: unpack its pure-Python sdist into site-packages.\n        from pyodide.http import pyfetch\n\n        sdist = (\"https://files.pythonhosted.org/packages/d0/1f/8ebfd20bc4c07d7d7af371089fcb407ce\"\n                 \"3980762c9300b5ab368742bfb54/mgnipy-0.3.0.tar.gz\")\n        sp = Path(site.getsitepackages()[0])\n        with tarfile.open(fileobj=io.BytesIO(await (await pyfetch(sdist)).bytes())) as tf:\n            for m in tf.getmembers():\n                if m.isfile() and m.name.startswith(\"mgnipy-0.3.0/mgnipy/\"):\n                    dest = sp / m.name.split(\"/\", 1)[1]\n                    dest.parent.mkdir(parents=True, exist_ok=True)\n                    dest.write_bytes(tf.extractfile(m).read())\n        (sp / \"mgnipy-0.3.0.dist-info\").mkdir(exist_ok=True)\n        (sp / \"mgnipy-0.3.0.dist-info/METADATA\").write_text(\"Metadata-Version: 2.1\\nName: mgnipy\\nVersion: 0.3.0\\n\")\n\n        # scikit-bio has no Pyodide build; mgnipy only uses it for FASTA/GFF/BIOM/tree files.\n        def no_skbio(*a, **k):\n            raise ImportError(\"scikit-bio is not available in the browser\")\n\n        for n in [\"skbio\", \"skbio.io\"]:\n            sys.modules[n] = types.ModuleType(n)\n        sys.modules[\"skbio.io\"].read = no_skbio\n\n        # httpx has no sockets in the browser: send its requests through XHR / fetch.\n        import httpx, js\n        from pyodide.ffi import to_js\n\n        skip = {\"host\", \"user-agent\", \"accept-encoding\", \"connection\", \"content-length\"}\n        drop = {\"content-encoding\", \"content-length\", \"transfer-encoding\"}\n        api = \"https://www.ebi.ac.uk/metagenomics/api/\"\n\n        def url(request):\n            u = str(request.url)\n            return PROXY.rstrip(\"/\") + \"/metagenomics/api/\" + u[len(api):] if PROXY and u.startswith(api) else u\n\n        def xhr(self, request):\n            x = js.XMLHttpRequest.new()\n            x.open(request.method, url(request), False)\n            x.overrideMimeType(\"text/plain; charset=x-user-defined\")  # raw bytes as text\n            for k, v in request.headers.items():\n                if k.lower() not in skip:\n                    x.setRequestHeader(k, v)\n            body = request.read()\n            try:\n                x.send(to_js(body) if body else None)\n            except Exception:\n                # FTP error pages (e.g. a listed-but-missing study summary) carry no CORS header, so the\n                # browser hides their status. FTP successes always have one, so report the miss as a 404.\n                if \"://ftp.ebi.ac.uk/\" in str(request.url):\n                    return httpx.Response(404, request=request, text=\"not found (status hidden by CORS)\")\n                raise\n            hdrs = [l.split(\": \", 1) for l in x.getAllResponseHeaders().strip().split(\"\\r\\n\") if \": \" in l]\n            return httpx.Response(x.status, headers=[h for h in hdrs if h[0].lower() not in drop],\n                                  content=x.responseText.encode(\"utf-16-le\")[::2], request=request)\n\n        async def fetch(self, request):\n            body = request.read()\n            r = await pyfetch(url(request), method=request.method, body=to_js(body) if body else None,\n                              headers={k: v for k, v in request.headers.items() if k.lower() not in skip})\n            return httpx.Response(r.status, content=await r.bytes(), request=request,\n                                  headers=[(k, v) for k, v in r.headers.items() if k.lower() not in drop])\n\n        httpx.HTTPTransport.handle_request = xhr\n        httpx.AsyncHTTPTransport.handle_async_request = fetch\n\n        # pandas.read_csv(url) and urllib use sockets; marimo refuses tqdm's multiprocessing lock.\n        import pyodide_http\n        import tqdm.std\n\n        pyodide_http.patch_all()\n        tqdm.std.TqdmDefaultWriteLock.create_mp_lock = classmethod(lambda cls: setattr(cls, \"mp_lock\", None))\n\n        # The shared helpers, and optionally a zip of data/notebook_cache, sit one level above\n        # each exported notebook (see notebooks/wasm/build.sh).\n        base = str(mo.notebook_location()).rstrip(\"/\") + \"/..\"\n        Path(\"mgnify_helpers.py\").write_bytes(await (await pyfetch(base + \"/mgnify_helpers.py\")).bytes())\n        cache = await pyfetch(base + \"/notebook_cache.zip\")\n        if cache.ok:\n            zipfile.ZipFile(io.BytesIO(await cache.bytes())).extractall(Path.cwd().parent / \"data/notebook_cache\")\n        sys.path.insert(0, str(Path.cwd()))\n\n    if sys.platform == \"emscripten\":\n        await _bootstrap()\n    helpers_ready = True\n    return\n\n\n@app.cell\ndef _():\n    import re\n\n    import marimo as mo\n    import pandas as pd\n\n    from mgnify_helpers import ena_attributes, profiles, qc_table, rawread_analyses, samples, study_summary, v6_rawread_studies\n\n    def taxon(m, genus):\n        \"\"\"Counts per run for one genus, matched on the g__ rank.\"\"\"\n        return m[m.index.str.contains(rf\"g__{re.escape(genus)}(?:;|$)\")].sum()\n\n    return (\n        ena_attributes,\n        mo,\n        pd,\n        profiles,\n        qc_table,\n        rawread_analyses,\n        samples,\n        study_summary,\n        taxon,\n        v6_rawread_studies,\n    )\n\n\n@app.cell(hide_code=True)\ndef _(mo):\n    mo.md(r\"\"\"\n    ## 1. Match on the rank: *Klebsiella* in the infant gut (MGYS00010446)\n    \"\"\")\n    return\n\n\n@app.cell\ndef _(mo, profiles, rawread_analyses, taxon):\n    _an = rawread_analyses(\"MGYS00010446\").drop_duplicates(\"sample\")\n    _motus = profiles(\"MGYS00010446\", \"motus\", _an)\n    _by_rank = taxon(_motus, \"Klebsiella\")\n    _by_substring = _motus[_motus.index.str.contains(\"Klebsiella\")].sum()\n    _extra = _motus.index[_motus.index.str.contains(\"Klebsiella\") \u0026 ~_motus.index.str.contains(r\"g__Klebsiella(?:;|$)\")]\n    mo.vstack([\n        mo.md(f\"Runs with *Klebsiella*: rank match **{(_by_rank \u003E 0).sum()}**, substring **{(_by_substring \u003E 0).sum()}**, of {_motus.shape[1]}. \"\n              \"The lineages only the substring finds:\"),\n        mo.md(\"\\n\".join(f\"- `{x[:160]}\u2026`\" for x in _extra.str.split(\";\").str[-2:].str.join(\"; \"))),\n    ])\n    return\n\n\n@app.cell(hide_code=True)\ndef _(mo):\n    mo.md(r\"\"\"\n    - **Why the extra hits:** they are mOTUs whose names list *Klebsiella* inside brackets, meaning an unresolved group assigned to another genus or only to family level.\n\n    ## 2. Counts and depth: *Campylobacter* in chickens (HoloFood, MGYS00005766)\n    \"\"\")\n    return\n\n\n@app.cell\ndef _(mo, pd, profiles, qc_table, rawread_analyses, samples, taxon):\n    an_h = rawread_analyses(\"MGYS00005766\")\n    _hq = qc_table(an_h).set_index(\"run\")\n    motus_h, ssu_h = profiles(\"MGYS00005766\", \"motus\", an_h), profiles(\"MGYS00005766\", \"silva-ssu\", an_h)\n    camp = pd.DataFrame({\n        \"section\": samples(\"MGYS00005766\").loc[_hq[\"sample\"], \"host_body_site\"].values,\n        \"clean_reads\": _hq.clean_reads,\n        \"motus_total\": motus_h.sum(),\n        \"motus_campy\": taxon(motus_h, \"Campylobacter\"),\n        \"ssu_campy\": taxon(ssu_h, \"Campylobacter\"),\n    })\n    camp[\"motus_share\"] = camp.motus_campy / camp.motus_total\n    camp[\"ssu_share\"] = camp.ssu_campy / ssu_h.sum()\n    mo.vstack([\n        mo.md(f\"Runs above 0.1%: mOTUs **{(camp.motus_share \u003E 0.001).sum()}**, SSU **{(camp.ssu_share \u003E 0.001).sum()}**, of {len(camp)}\"),\n        camp.sort_values(\"motus_share\", ascending=False).head().round(4),\n    ])\n    return an_h, camp, ssu_h\n\n\n@app.cell(hide_code=True)\ndef _(mo):\n    mo.md(r\"\"\"\n    Three birds have culture results in their ENA record (`host disease status`). Do the profiles agree?\n    \"\"\")\n    return\n\n\n@app.cell\ndef _(an_h, camp, ena_attributes):\n    _ena = ena_attributes(an_h[\"sample\"]).set_axis(an_h.run)\n    cultured = _ena[\"host disease status\"].dropna()\n    camp.loc[cultured.index].assign(culture=cultured).round(4)\n    return (cultured,)\n\n\n@app.cell\ndef _(cultured, mo, ssu_h):\n    _pos = cultured.index[cultured.str.contains(\"Campylobacter:+\", regex=False)][0]\n    _order = ssu_h[_pos][ssu_h.index.str.contains(\"o__Campylobacterales\") \u0026 (ssu_h[_pos] \u003E 0)]\n    mo.vstack([mo.md(f\"**{_pos}**: SSU reads in Campylobacterales\"), _order.rename(\"SSU counts\")])\n    return\n\n\n@app.cell(hide_code=True)\ndef _(mo):\n    mo.md(r\"\"\"\n    - **The culture-positive bird** is an ileum sample with only 155 mOTUs counts in the whole run, so a share of 0 means little.\n    - **SSU** has no *Campylobacter* either, only a few reads from a related genus.\n    - **Absence at this depth is not evidence of absence:** report the counts behind each share.\n\n    ## 3. Read the metadata: *Thermus* in the Amazon plume (MGYS00000382)\n\n    There's no study summary here, so the first run downloads 96 SSU tables.\n    \"\"\")\n    return\n\n\n@app.cell\ndef _(profiles, rawread_analyses, taxon):\n    an_a = rawread_analyses(\"MGYS00000382\")\n    _ssu = profiles(\"MGYS00000382\", \"silva-ssu\", an_a)\n    _bact = _ssu[_ssu.index.str.startswith(\"sk__Bacteria\")].sum()\n    thermus = (taxon(_ssu, \"Thermus\") / _bact).rename(\"thermus_share_of_bacterial_ssu\")\n    thermus.describe().round(3)\n    return an_a, thermus\n\n\n@app.cell\ndef _(an_a, ena_attributes, thermus):\n    _ena = ena_attributes(an_a[\"sample\"]).set_axis(an_a.run)\n    thermus.sort_values(ascending=False).head(6).to_frame().join(_ena[[\"std_norm_factor\"]]).round(3)\n    return\n\n\n@app.cell(hide_code=True)\ndef _(mo):\n    mo.md(r\"\"\"\n    - **What it looks like:** in some runs, most of the bacterial SSU is *Thermus*. That isn't biology.\n    - **What it is:** these samples were spiked with *Thermus thermophilus* genomic DNA as an internal standard for absolute quantification.\n    - **The clue:** the `std_norm_factor` attribute in ENA. The paper (Satinsky et al.) explains it.\n\n    ## 4. Search every V6 raw-read study\n\n    1. List the studies. The discovery step loops over every V6 study once, then caches the list.\n    2. Use each study's summary where MGnify has one.\n    \"\"\")\n    return\n\n\n@app.cell\ndef _(mo, study_summary, v6_rawread_studies):\n    v6 = v6_rawread_studies()\n    with_summary = [acc for acc in v6.accession if study_summary(acc, \"motus\") is not None]\n    mo.vstack([mo.md(f\"**{len(with_summary)} of {len(v6)}** studies have a V6 study summary on the FTP; the rest need per-run files.\"), v6])\n    return (v6,)\n\n\n@app.cell\ndef _(pd, study_summary, taxon, v6):\n    def search(genus, profile):\n        rows = []\n        for acc in v6.accession:\n            m = study_summary(acc, profile)\n            if m is None or m.empty:  # no summary, or an empty one\n                continue\n            hit, total = taxon(m, genus), m.sum().astype(float)\n            rows.append(pd.DataFrame({\"study\": acc, \"count\": hit, \"total\": total, \"share\": hit / total}))\n        return pd.concat(rows).rename_axis(\"run\").reset_index()\n\n    return (search,)\n\n\n@app.cell\ndef _(mo):\n    genus_q = mo.ui.text(value=\"Methanobrevibacter\", label=\"Genus (exact name)\")\n    genus_q\n    return (genus_q,)\n\n\n@app.cell\ndef _(genus_q, mo, search):\n    hits = search(genus_q.value, \"motus\").merge(search(genus_q.value, \"silva-ssu\"), on=[\"study\", \"run\"], suffixes=(\"_motus\", \"_ssu\"))\n    hits[\"both\"] = (hits.count_motus \u003E 0) \u0026 (hits.count_ssu \u003E 0)\n    mo.vstack([\n        hits.groupby(\"study\").agg(runs=(\"run\", \"size\"), with_hit=(\"both\", \"sum\")),\n        hits.sort_values([\"both\", \"count_ssu\"], ascending=False).head(10).round(4),\n    ])\n    return\n\n\n@app.cell(hide_code=True)\ndef _(mo):\n    mo.md(r\"\"\"\n    - **Ranking:** by evidence. Runs found by both profilers come first, then by SSU counts.\n    - **Eukaryotes:** only SSU can answer. *Blastocystis*, common in the human gut, is in none of these summaries; other gut protists are:\n    \"\"\")\n    return\n\n\n@app.cell\ndef _(mo):\n    protists = mo.ui.multiselect([\"Blastocystis\", \"Dientamoeba\", \"Entamoeba\", \"Giardia\", \"Cryptosporidium\"],\n                                 value=[\"Blastocystis\", \"Dientamoeba\", \"Entamoeba\", \"Giardia\"], label=\"Eukaryotic genera\")\n    protists\n    return (protists,)\n\n\n@app.cell\ndef _(pd, protists, search):\n    _euk = pd.concat({g: search(g, \"silva-ssu\") for g in protists.value}, names=[\"genus\", None])\n    _euk[_euk[\"count\"] \u003E 0].groupby([\"genus\", \"study\"]).agg(runs=(\"run\", \"size\"), max_count=(\"count\", \"max\"), max_share=(\"share\", \"max\")).round(4)\n    return\n\n\n@app.cell(hide_code=True)\ndef _(mo):\n    mo.md(r\"\"\"\n    ## Takeaways\n\n    - **No taxon search exists for raw-read results:** loop over study summaries, and fall back to per-run tables where there is none.\n    - **Match on the rank**, and report counts and depth next to shares.\n    - **Profilers disagree at low counts;** eukaryotes need SSU.\n    - **A surprising hit is a reason to read the metadata and the paper.**\n    \"\"\")\n    return\n\n\nif __name__ == \"__main__\":\n    app.run()\n",
+        }),
+        writable: false,
+        configurable: false,
+    });
+</script>
+<marimo-code hidden="">%23%20%2F%2F%2F%20script%0A%23%20dependencies%20%3D%20%5B%22mgnify_helpers%20%40%20..%2Fpublic%2Fwheels%2Fmgnify_helpers-0.0.0%252Bmarimo.4914c1540b69-py3-none-any.whl%22%5D%0A%23%20%2F%2F%2F%0A%0Aimport%20marimo%0A%0A__generated_with%20%3D%20%220.25.2%22%0Aapp%20%3D%20marimo.App(width%3D%22medium%22%2C%20app_title%3D%22RQ3%3A%20find%20samples%20with%20a%20taxon%22)%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%0A%20%20%20%20%23%20RQ3.%20Which%20samples%20are%20likely%20to%20contain%20a%20taxon%20of%20interest%3F%0A%0A%20%20%20%20MGnify%20has%20no%20taxon%20search%20for%20raw-read%20results.%20The%20route%20is%3A%20find%20the%20studies%2C%20download%20their%20taxonomy%20tables%20(study%20summary%2C%20or%20one%20file%20per%20run)%2C%20and%20filter.%20All%20MGnify%20access%20is%20through%20mgnipy%20(%60mgnify_helpers.py%60)%3B%20ENA%20and%20the%20paper%20are%20used%20to%20check%20surprising%20hits.%0A%0A%20%20%20%20Rules%20of%20thumb%3A%0A%20%20%20%20-%20Match%20on%20the%20**rank**%20(%60g__Klebsiella%60)%2C%20not%20a%20substring.%0A%20%20%20%20-%20Report%20**counts%20and%20depth**%2C%20not%20only%20relative%20abundance.%20Absence%20at%20low%20counts%20isn't%20evidence%20of%20absence.%0A%20%20%20%20-%20Check%20mOTUs%20against%20SILVA%20SSU.%20mOTUs%20can't%20see%20eukaryotes.%0A%20%20%20%20-%20Read%20the%20metadata%20before%20believing%20a%20hit.%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Aasync%20def%20_()%3A%0A%20%20%20%20%23%20Browser%20(WASM)%20setup%3A%20makes%20mgnipy%20run%20in%20Pyodide.%20Does%20nothing%20in%20a%20normal%20Python%20install.%0A%20%20%20%20%23%20Background%3A%20notebooks%2Fwasm%2FREADME.md.%20Serve%20the%20export%20from%20http%3A%2F%2Flocalhost%3A8000%20(on%20the%0A%20%20%20%20%23%20MGnify%20API's%20CORS%20allowlist)%2C%20or%20set%20PROXY%20to%20a%20CORS%20proxy%20for%20the%20MGnify%20API.%0A%20%20%20%20import%20sys%0A%0A%20%20%20%20PROXY%20%3D%20None%0A%0A%20%20%20%20async%20def%20_bootstrap()%3A%0A%20%20%20%20%20%20%20%20import%20io%2C%20site%2C%20tarfile%2C%20types%2C%20zipfile%0A%20%20%20%20%20%20%20%20from%20pathlib%20import%20Path%0A%0A%20%20%20%20%20%20%20%20import%20marimo%20as%20mo%0A%20%20%20%20%20%20%20%20import%20micropip%0A%0A%20%20%20%20%20%20%20%20await%20micropip.install(%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22aiofiles%22%2C%20%22anndata%22%2C%20%22async-lru%22%2C%20%22attrs%22%2C%20%22bigtree%22%2C%20%22httpx%22%2C%20%22h2%22%2C%20%22ijson%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22pandas%22%2C%20%22platformdirs%22%2C%20%22polars%22%2C%20%22pyarrow%22%2C%20%22pydantic%22%2C%20%22pydantic-settings%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22python-dateutil%22%2C%20%22pyyaml%22%2C%20%22requests%22%2C%20%22scipy%22%2C%20%22tqdm%22%2C%20%22matplotlib%22%2C%20%22pyodide-http%22%2C%0A%20%20%20%20%20%20%20%20%5D)%0A%20%20%20%20%20%20%20%20%23%20mgnipy%20has%20no%20wheel%20on%20PyPI%3A%20unpack%20its%20pure-Python%20sdist%20into%20site-packages.%0A%20%20%20%20%20%20%20%20from%20pyodide.http%20import%20pyfetch%0A%0A%20%20%20%20%20%20%20%20sdist%20%3D%20(%22https%3A%2F%2Ffiles.pythonhosted.org%2Fpackages%2Fd0%2F1f%2F8ebfd20bc4c07d7d7af371089fcb407ce%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%223980762c9300b5ab368742bfb54%2Fmgnipy-0.3.0.tar.gz%22)%0A%20%20%20%20%20%20%20%20sp%20%3D%20Path(site.getsitepackages()%5B0%5D)%0A%20%20%20%20%20%20%20%20with%20tarfile.open(fileobj%3Dio.BytesIO(await%20(await%20pyfetch(sdist)).bytes()))%20as%20tf%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20for%20m%20in%20tf.getmembers()%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20if%20m.isfile()%20and%20m.name.startswith(%22mgnipy-0.3.0%2Fmgnipy%2F%22)%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20dest%20%3D%20sp%20%2F%20m.name.split(%22%2F%22%2C%201)%5B1%5D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20dest.parent.mkdir(parents%3DTrue%2C%20exist_ok%3DTrue)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20dest.write_bytes(tf.extractfile(m).read())%0A%20%20%20%20%20%20%20%20(sp%20%2F%20%22mgnipy-0.3.0.dist-info%22).mkdir(exist_ok%3DTrue)%0A%20%20%20%20%20%20%20%20(sp%20%2F%20%22mgnipy-0.3.0.dist-info%2FMETADATA%22).write_text(%22Metadata-Version%3A%202.1%5CnName%3A%20mgnipy%5CnVersion%3A%200.3.0%5Cn%22)%0A%0A%20%20%20%20%20%20%20%20%23%20scikit-bio%20has%20no%20Pyodide%20build%3B%20mgnipy%20only%20uses%20it%20for%20FASTA%2FGFF%2FBIOM%2Ftree%20files.%0A%20%20%20%20%20%20%20%20def%20no_skbio(*a%2C%20**k)%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20raise%20ImportError(%22scikit-bio%20is%20not%20available%20in%20the%20browser%22)%0A%0A%20%20%20%20%20%20%20%20for%20n%20in%20%5B%22skbio%22%2C%20%22skbio.io%22%5D%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20sys.modules%5Bn%5D%20%3D%20types.ModuleType(n)%0A%20%20%20%20%20%20%20%20sys.modules%5B%22skbio.io%22%5D.read%20%3D%20no_skbio%0A%0A%20%20%20%20%20%20%20%20%23%20httpx%20has%20no%20sockets%20in%20the%20browser%3A%20send%20its%20requests%20through%20XHR%20%2F%20fetch.%0A%20%20%20%20%20%20%20%20import%20httpx%2C%20js%0A%20%20%20%20%20%20%20%20from%20pyodide.ffi%20import%20to_js%0A%0A%20%20%20%20%20%20%20%20skip%20%3D%20%7B%22host%22%2C%20%22user-agent%22%2C%20%22accept-encoding%22%2C%20%22connection%22%2C%20%22content-length%22%7D%0A%20%20%20%20%20%20%20%20drop%20%3D%20%7B%22content-encoding%22%2C%20%22content-length%22%2C%20%22transfer-encoding%22%7D%0A%20%20%20%20%20%20%20%20api%20%3D%20%22https%3A%2F%2Fwww.ebi.ac.uk%2Fmetagenomics%2Fapi%2F%22%0A%0A%20%20%20%20%20%20%20%20def%20url(request)%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20u%20%3D%20str(request.url)%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20PROXY.rstrip(%22%2F%22)%20%2B%20%22%2Fmetagenomics%2Fapi%2F%22%20%2B%20u%5Blen(api)%3A%5D%20if%20PROXY%20and%20u.startswith(api)%20else%20u%0A%0A%20%20%20%20%20%20%20%20def%20xhr(self%2C%20request)%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20x%20%3D%20js.XMLHttpRequest.new()%0A%20%20%20%20%20%20%20%20%20%20%20%20x.open(request.method%2C%20url(request)%2C%20False)%0A%20%20%20%20%20%20%20%20%20%20%20%20x.overrideMimeType(%22text%2Fplain%3B%20charset%3Dx-user-defined%22)%20%20%23%20raw%20bytes%20as%20text%0A%20%20%20%20%20%20%20%20%20%20%20%20for%20k%2C%20v%20in%20request.headers.items()%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20if%20k.lower()%20not%20in%20skip%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20x.setRequestHeader(k%2C%20v)%0A%20%20%20%20%20%20%20%20%20%20%20%20body%20%3D%20request.read()%0A%20%20%20%20%20%20%20%20%20%20%20%20try%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20x.send(to_js(body)%20if%20body%20else%20None)%0A%20%20%20%20%20%20%20%20%20%20%20%20except%20Exception%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%23%20FTP%20error%20pages%20(e.g.%20a%20listed-but-missing%20study%20summary)%20carry%20no%20CORS%20header%2C%20so%20the%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%23%20browser%20hides%20their%20status.%20FTP%20successes%20always%20have%20one%2C%20so%20report%20the%20miss%20as%20a%20404.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20if%20%22%3A%2F%2Fftp.ebi.ac.uk%2F%22%20in%20str(request.url)%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20return%20httpx.Response(404%2C%20request%3Drequest%2C%20text%3D%22not%20found%20(status%20hidden%20by%20CORS)%22)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20raise%0A%20%20%20%20%20%20%20%20%20%20%20%20hdrs%20%3D%20%5Bl.split(%22%3A%20%22%2C%201)%20for%20l%20in%20x.getAllResponseHeaders().strip().split(%22%5Cr%5Cn%22)%20if%20%22%3A%20%22%20in%20l%5D%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20httpx.Response(x.status%2C%20headers%3D%5Bh%20for%20h%20in%20hdrs%20if%20h%5B0%5D.lower()%20not%20in%20drop%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20content%3Dx.responseText.encode(%22utf-16-le%22)%5B%3A%3A2%5D%2C%20request%3Drequest)%0A%0A%20%20%20%20%20%20%20%20async%20def%20fetch(self%2C%20request)%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20body%20%3D%20request.read()%0A%20%20%20%20%20%20%20%20%20%20%20%20r%20%3D%20await%20pyfetch(url(request)%2C%20method%3Drequest.method%2C%20body%3Dto_js(body)%20if%20body%20else%20None%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20headers%3D%7Bk%3A%20v%20for%20k%2C%20v%20in%20request.headers.items()%20if%20k.lower()%20not%20in%20skip%7D)%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20httpx.Response(r.status%2C%20content%3Dawait%20r.bytes()%2C%20request%3Drequest%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20headers%3D%5B(k%2C%20v)%20for%20k%2C%20v%20in%20r.headers.items()%20if%20k.lower()%20not%20in%20drop%5D)%0A%0A%20%20%20%20%20%20%20%20httpx.HTTPTransport.handle_request%20%3D%20xhr%0A%20%20%20%20%20%20%20%20httpx.AsyncHTTPTransport.handle_async_request%20%3D%20fetch%0A%0A%20%20%20%20%20%20%20%20%23%20pandas.read_csv(url)%20and%20urllib%20use%20sockets%3B%20marimo%20refuses%20tqdm's%20multiprocessing%20lock.%0A%20%20%20%20%20%20%20%20import%20pyodide_http%0A%20%20%20%20%20%20%20%20import%20tqdm.std%0A%0A%20%20%20%20%20%20%20%20pyodide_http.patch_all()%0A%20%20%20%20%20%20%20%20tqdm.std.TqdmDefaultWriteLock.create_mp_lock%20%3D%20classmethod(lambda%20cls%3A%20setattr(cls%2C%20%22mp_lock%22%2C%20None))%0A%0A%20%20%20%20%20%20%20%20%23%20The%20shared%20helpers%2C%20and%20optionally%20a%20zip%20of%20data%2Fnotebook_cache%2C%20sit%20one%20level%20above%0A%20%20%20%20%20%20%20%20%23%20each%20exported%20notebook%20(see%20notebooks%2Fwasm%2Fbuild.sh).%0A%20%20%20%20%20%20%20%20base%20%3D%20str(mo.notebook_location()).rstrip(%22%2F%22)%20%2B%20%22%2F..%22%0A%20%20%20%20%20%20%20%20Path(%22mgnify_helpers.py%22).write_bytes(await%20(await%20pyfetch(base%20%2B%20%22%2Fmgnify_helpers.py%22)).bytes())%0A%20%20%20%20%20%20%20%20cache%20%3D%20await%20pyfetch(base%20%2B%20%22%2Fnotebook_cache.zip%22)%0A%20%20%20%20%20%20%20%20if%20cache.ok%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20zipfile.ZipFile(io.BytesIO(await%20cache.bytes())).extractall(Path.cwd().parent%20%2F%20%22data%2Fnotebook_cache%22)%0A%20%20%20%20%20%20%20%20sys.path.insert(0%2C%20str(Path.cwd()))%0A%0A%20%20%20%20if%20sys.platform%20%3D%3D%20%22emscripten%22%3A%0A%20%20%20%20%20%20%20%20await%20_bootstrap()%0A%20%20%20%20helpers_ready%20%3D%20True%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_()%3A%0A%20%20%20%20import%20re%0A%0A%20%20%20%20import%20marimo%20as%20mo%0A%20%20%20%20import%20pandas%20as%20pd%0A%0A%20%20%20%20from%20mgnify_helpers%20import%20ena_attributes%2C%20profiles%2C%20qc_table%2C%20rawread_analyses%2C%20samples%2C%20study_summary%2C%20v6_rawread_studies%0A%0A%20%20%20%20def%20taxon(m%2C%20genus)%3A%0A%20%20%20%20%20%20%20%20%22%22%22Counts%20per%20run%20for%20one%20genus%2C%20matched%20on%20the%20g__%20rank.%22%22%22%0A%20%20%20%20%20%20%20%20return%20m%5Bm.index.str.contains(rf%22g__%7Bre.escape(genus)%7D(%3F%3A%3B%7C%24)%22)%5D.sum()%0A%0A%20%20%20%20return%20(%0A%20%20%20%20%20%20%20%20ena_attributes%2C%0A%20%20%20%20%20%20%20%20mo%2C%0A%20%20%20%20%20%20%20%20pd%2C%0A%20%20%20%20%20%20%20%20profiles%2C%0A%20%20%20%20%20%20%20%20qc_table%2C%0A%20%20%20%20%20%20%20%20rawread_analyses%2C%0A%20%20%20%20%20%20%20%20samples%2C%0A%20%20%20%20%20%20%20%20study_summary%2C%0A%20%20%20%20%20%20%20%20taxon%2C%0A%20%20%20%20%20%20%20%20v6_rawread_studies%2C%0A%20%20%20%20)%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%0A%20%20%20%20%23%23%201.%20Match%20on%20the%20rank%3A%20*Klebsiella*%20in%20the%20infant%20gut%20(MGYS00010446)%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_(mo%2C%20profiles%2C%20rawread_analyses%2C%20taxon)%3A%0A%20%20%20%20_an%20%3D%20rawread_analyses(%22MGYS00010446%22).drop_duplicates(%22sample%22)%0A%20%20%20%20_motus%20%3D%20profiles(%22MGYS00010446%22%2C%20%22motus%22%2C%20_an)%0A%20%20%20%20_by_rank%20%3D%20taxon(_motus%2C%20%22Klebsiella%22)%0A%20%20%20%20_by_substring%20%3D%20_motus%5B_motus.index.str.contains(%22Klebsiella%22)%5D.sum()%0A%20%20%20%20_extra%20%3D%20_motus.index%5B_motus.index.str.contains(%22Klebsiella%22)%20%26%20~_motus.index.str.contains(r%22g__Klebsiella(%3F%3A%3B%7C%24)%22)%5D%0A%20%20%20%20mo.vstack(%5B%0A%20%20%20%20%20%20%20%20mo.md(f%22Runs%20with%20*Klebsiella*%3A%20rank%20match%20**%7B(_by_rank%20%3E%200).sum()%7D**%2C%20substring%20**%7B(_by_substring%20%3E%200).sum()%7D**%2C%20of%20%7B_motus.shape%5B1%5D%7D.%20%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%22The%20lineages%20only%20the%20substring%20finds%3A%22)%2C%0A%20%20%20%20%20%20%20%20mo.md(%22%5Cn%22.join(f%22-%20%60%7Bx%5B%3A160%5D%7D%E2%80%A6%60%22%20for%20x%20in%20_extra.str.split(%22%3B%22).str%5B-2%3A%5D.str.join(%22%3B%20%22)))%2C%0A%20%20%20%20%5D)%0A%20%20%20%20return%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%0A%20%20%20%20-%20**Why%20the%20extra%20hits%3A**%20they%20are%20mOTUs%20whose%20names%20list%20*Klebsiella*%20inside%20brackets%2C%20meaning%20an%20unresolved%20group%20assigned%20to%20another%20genus%20or%20only%20to%20family%20level.%0A%0A%20%20%20%20%23%23%202.%20Counts%20and%20depth%3A%20*Campylobacter*%20in%20chickens%20(HoloFood%2C%20MGYS00005766)%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_(mo%2C%20pd%2C%20profiles%2C%20qc_table%2C%20rawread_analyses%2C%20samples%2C%20taxon)%3A%0A%20%20%20%20an_h%20%3D%20rawread_analyses(%22MGYS00005766%22)%0A%20%20%20%20_hq%20%3D%20qc_table(an_h).set_index(%22run%22)%0A%20%20%20%20motus_h%2C%20ssu_h%20%3D%20profiles(%22MGYS00005766%22%2C%20%22motus%22%2C%20an_h)%2C%20profiles(%22MGYS00005766%22%2C%20%22silva-ssu%22%2C%20an_h)%0A%20%20%20%20camp%20%3D%20pd.DataFrame(%7B%0A%20%20%20%20%20%20%20%20%22section%22%3A%20samples(%22MGYS00005766%22).loc%5B_hq%5B%22sample%22%5D%2C%20%22host_body_site%22%5D.values%2C%0A%20%20%20%20%20%20%20%20%22clean_reads%22%3A%20_hq.clean_reads%2C%0A%20%20%20%20%20%20%20%20%22motus_total%22%3A%20motus_h.sum()%2C%0A%20%20%20%20%20%20%20%20%22motus_campy%22%3A%20taxon(motus_h%2C%20%22Campylobacter%22)%2C%0A%20%20%20%20%20%20%20%20%22ssu_campy%22%3A%20taxon(ssu_h%2C%20%22Campylobacter%22)%2C%0A%20%20%20%20%7D)%0A%20%20%20%20camp%5B%22motus_share%22%5D%20%3D%20camp.motus_campy%20%2F%20camp.motus_total%0A%20%20%20%20camp%5B%22ssu_share%22%5D%20%3D%20camp.ssu_campy%20%2F%20ssu_h.sum()%0A%20%20%20%20mo.vstack(%5B%0A%20%20%20%20%20%20%20%20mo.md(f%22Runs%20above%200.1%25%3A%20mOTUs%20**%7B(camp.motus_share%20%3E%200.001).sum()%7D**%2C%20SSU%20**%7B(camp.ssu_share%20%3E%200.001).sum()%7D**%2C%20of%20%7Blen(camp)%7D%22)%2C%0A%20%20%20%20%20%20%20%20camp.sort_values(%22motus_share%22%2C%20ascending%3DFalse).head().round(4)%2C%0A%20%20%20%20%5D)%0A%20%20%20%20return%20an_h%2C%20camp%2C%20ssu_h%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%0A%20%20%20%20Three%20birds%20have%20culture%20results%20in%20their%20ENA%20record%20(%60host%20disease%20status%60).%20Do%20the%20profiles%20agree%3F%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_(an_h%2C%20camp%2C%20ena_attributes)%3A%0A%20%20%20%20_ena%20%3D%20ena_attributes(an_h%5B%22sample%22%5D).set_axis(an_h.run)%0A%20%20%20%20cultured%20%3D%20_ena%5B%22host%20disease%20status%22%5D.dropna()%0A%20%20%20%20camp.loc%5Bcultured.index%5D.assign(culture%3Dcultured).round(4)%0A%20%20%20%20return%20(cultured%2C)%0A%0A%0A%40app.cell%0Adef%20_(cultured%2C%20mo%2C%20ssu_h)%3A%0A%20%20%20%20_pos%20%3D%20cultured.index%5Bcultured.str.contains(%22Campylobacter%3A%2B%22%2C%20regex%3DFalse)%5D%5B0%5D%0A%20%20%20%20_order%20%3D%20ssu_h%5B_pos%5D%5Bssu_h.index.str.contains(%22o__Campylobacterales%22)%20%26%20(ssu_h%5B_pos%5D%20%3E%200)%5D%0A%20%20%20%20mo.vstack(%5Bmo.md(f%22**%7B_pos%7D**%3A%20SSU%20reads%20in%20Campylobacterales%22)%2C%20_order.rename(%22SSU%20counts%22)%5D)%0A%20%20%20%20return%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%0A%20%20%20%20-%20**The%20culture-positive%20bird**%20is%20an%20ileum%20sample%20with%20only%20155%20mOTUs%20counts%20in%20the%20whole%20run%2C%20so%20a%20share%20of%200%20means%20little.%0A%20%20%20%20-%20**SSU**%20has%20no%20*Campylobacter*%20either%2C%20only%20a%20few%20reads%20from%20a%20related%20genus.%0A%20%20%20%20-%20**Absence%20at%20this%20depth%20is%20not%20evidence%20of%20absence%3A**%20report%20the%20counts%20behind%20each%20share.%0A%0A%20%20%20%20%23%23%203.%20Read%20the%20metadata%3A%20*Thermus*%20in%20the%20Amazon%20plume%20(MGYS00000382)%0A%0A%20%20%20%20There's%20no%20study%20summary%20here%2C%20so%20the%20first%20run%20downloads%2096%20SSU%20tables.%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_(profiles%2C%20rawread_analyses%2C%20taxon)%3A%0A%20%20%20%20an_a%20%3D%20rawread_analyses(%22MGYS00000382%22)%0A%20%20%20%20_ssu%20%3D%20profiles(%22MGYS00000382%22%2C%20%22silva-ssu%22%2C%20an_a)%0A%20%20%20%20_bact%20%3D%20_ssu%5B_ssu.index.str.startswith(%22sk__Bacteria%22)%5D.sum()%0A%20%20%20%20thermus%20%3D%20(taxon(_ssu%2C%20%22Thermus%22)%20%2F%20_bact).rename(%22thermus_share_of_bacterial_ssu%22)%0A%20%20%20%20thermus.describe().round(3)%0A%20%20%20%20return%20an_a%2C%20thermus%0A%0A%0A%40app.cell%0Adef%20_(an_a%2C%20ena_attributes%2C%20thermus)%3A%0A%20%20%20%20_ena%20%3D%20ena_attributes(an_a%5B%22sample%22%5D).set_axis(an_a.run)%0A%20%20%20%20thermus.sort_values(ascending%3DFalse).head(6).to_frame().join(_ena%5B%5B%22std_norm_factor%22%5D%5D).round(3)%0A%20%20%20%20return%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%0A%20%20%20%20-%20**What%20it%20looks%20like%3A**%20in%20some%20runs%2C%20most%20of%20the%20bacterial%20SSU%20is%20*Thermus*.%20That%20isn't%20biology.%0A%20%20%20%20-%20**What%20it%20is%3A**%20these%20samples%20were%20spiked%20with%20*Thermus%20thermophilus*%20genomic%20DNA%20as%20an%20internal%20standard%20for%20absolute%20quantification.%0A%20%20%20%20-%20**The%20clue%3A**%20the%20%60std_norm_factor%60%20attribute%20in%20ENA.%20The%20paper%20(Satinsky%20et%20al.)%20explains%20it.%0A%0A%20%20%20%20%23%23%204.%20Search%20every%20V6%20raw-read%20study%0A%0A%20%20%20%201.%20List%20the%20studies.%20The%20discovery%20step%20loops%20over%20every%20V6%20study%20once%2C%20then%20caches%20the%20list.%0A%20%20%20%202.%20Use%20each%20study's%20summary%20where%20MGnify%20has%20one.%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_(mo%2C%20study_summary%2C%20v6_rawread_studies)%3A%0A%20%20%20%20v6%20%3D%20v6_rawread_studies()%0A%20%20%20%20with_summary%20%3D%20%5Bacc%20for%20acc%20in%20v6.accession%20if%20study_summary(acc%2C%20%22motus%22)%20is%20not%20None%5D%0A%20%20%20%20mo.vstack(%5Bmo.md(f%22**%7Blen(with_summary)%7D%20of%20%7Blen(v6)%7D**%20studies%20have%20a%20V6%20study%20summary%20on%20the%20FTP%3B%20the%20rest%20need%20per-run%20files.%22)%2C%20v6%5D)%0A%20%20%20%20return%20(v6%2C)%0A%0A%0A%40app.cell%0Adef%20_(pd%2C%20study_summary%2C%20taxon%2C%20v6)%3A%0A%20%20%20%20def%20search(genus%2C%20profile)%3A%0A%20%20%20%20%20%20%20%20rows%20%3D%20%5B%5D%0A%20%20%20%20%20%20%20%20for%20acc%20in%20v6.accession%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20m%20%3D%20study_summary(acc%2C%20profile)%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20m%20is%20None%20or%20m.empty%3A%20%20%23%20no%20summary%2C%20or%20an%20empty%20one%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20continue%0A%20%20%20%20%20%20%20%20%20%20%20%20hit%2C%20total%20%3D%20taxon(m%2C%20genus)%2C%20m.sum().astype(float)%0A%20%20%20%20%20%20%20%20%20%20%20%20rows.append(pd.DataFrame(%7B%22study%22%3A%20acc%2C%20%22count%22%3A%20hit%2C%20%22total%22%3A%20total%2C%20%22share%22%3A%20hit%20%2F%20total%7D))%0A%20%20%20%20%20%20%20%20return%20pd.concat(rows).rename_axis(%22run%22).reset_index()%0A%0A%20%20%20%20return%20(search%2C)%0A%0A%0A%40app.cell%0Adef%20_(mo)%3A%0A%20%20%20%20genus_q%20%3D%20mo.ui.text(value%3D%22Methanobrevibacter%22%2C%20label%3D%22Genus%20(exact%20name)%22)%0A%20%20%20%20genus_q%0A%20%20%20%20return%20(genus_q%2C)%0A%0A%0A%40app.cell%0Adef%20_(genus_q%2C%20mo%2C%20search)%3A%0A%20%20%20%20hits%20%3D%20search(genus_q.value%2C%20%22motus%22).merge(search(genus_q.value%2C%20%22silva-ssu%22)%2C%20on%3D%5B%22study%22%2C%20%22run%22%5D%2C%20suffixes%3D(%22_motus%22%2C%20%22_ssu%22))%0A%20%20%20%20hits%5B%22both%22%5D%20%3D%20(hits.count_motus%20%3E%200)%20%26%20(hits.count_ssu%20%3E%200)%0A%20%20%20%20mo.vstack(%5B%0A%20%20%20%20%20%20%20%20hits.groupby(%22study%22).agg(runs%3D(%22run%22%2C%20%22size%22)%2C%20with_hit%3D(%22both%22%2C%20%22sum%22))%2C%0A%20%20%20%20%20%20%20%20hits.sort_values(%5B%22both%22%2C%20%22count_ssu%22%5D%2C%20ascending%3DFalse).head(10).round(4)%2C%0A%20%20%20%20%5D)%0A%20%20%20%20return%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%0A%20%20%20%20-%20**Ranking%3A**%20by%20evidence.%20Runs%20found%20by%20both%20profilers%20come%20first%2C%20then%20by%20SSU%20counts.%0A%20%20%20%20-%20**Eukaryotes%3A**%20only%20SSU%20can%20answer.%20*Blastocystis*%2C%20common%20in%20the%20human%20gut%2C%20is%20in%20none%20of%20these%20summaries%3B%20other%20gut%20protists%20are%3A%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_(mo)%3A%0A%20%20%20%20protists%20%3D%20mo.ui.multiselect(%5B%22Blastocystis%22%2C%20%22Dientamoeba%22%2C%20%22Entamoeba%22%2C%20%22Giardia%22%2C%20%22Cryptosporidium%22%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20value%3D%5B%22Blastocystis%22%2C%20%22Dientamoeba%22%2C%20%22Entamoeba%22%2C%20%22Giardia%22%5D%2C%20label%3D%22Eukaryotic%20genera%22)%0A%20%20%20%20protists%0A%20%20%20%20return%20(protists%2C)%0A%0A%0A%40app.cell%0Adef%20_(pd%2C%20protists%2C%20search)%3A%0A%20%20%20%20_euk%20%3D%20pd.concat(%7Bg%3A%20search(g%2C%20%22silva-ssu%22)%20for%20g%20in%20protists.value%7D%2C%20names%3D%5B%22genus%22%2C%20None%5D)%0A%20%20%20%20_euk%5B_euk%5B%22count%22%5D%20%3E%200%5D.groupby(%5B%22genus%22%2C%20%22study%22%5D).agg(runs%3D(%22run%22%2C%20%22size%22)%2C%20max_count%3D(%22count%22%2C%20%22max%22)%2C%20max_share%3D(%22share%22%2C%20%22max%22)).round(4)%0A%20%20%20%20return%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%0A%20%20%20%20%23%23%20Takeaways%0A%0A%20%20%20%20-%20**No%20taxon%20search%20exists%20for%20raw-read%20results%3A**%20loop%20over%20study%20summaries%2C%20and%20fall%20back%20to%20per-run%20tables%20where%20there%20is%20none.%0A%20%20%20%20-%20**Match%20on%20the%20rank**%2C%20and%20report%20counts%20and%20depth%20next%20to%20shares.%0A%20%20%20%20-%20**Profilers%20disagree%20at%20low%20counts%3B**%20eukaryotes%20need%20SSU.%0A%20%20%20%20-%20**A%20surprising%20hit%20is%20a%20reason%20to%20read%20the%20metadata%20and%20the%20paper.**%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0Aif%20__name__%20%3D%3D%20%22__main__%22%3A%0A%20%20%20%20app.run()%0A</marimo-code></head>
+  <body>
+    <div id="root"></div>
+    <script data-marimo="true">
+      Object.defineProperty(window, "__MARIMO_MOUNT_CONFIG__", {
+        value: Object.freeze({
+            "filename": "notebook.py",
+            "cwd": "",
+            "lspWorkspace": null,
+            "mode": "edit",
+            "version": "0.25.2",
+            "serverToken": "unused",
+            "config": {"ai": {"allow_provider_config": true, "custom_providers": {}, "enabled": true, "models": {"custom_models": [], "displayed_models": []}}, "completion": {"activate_on_typing": true, "auto_close_pairs": true, "copilot": false, "signature_hint_on_typing": false}, "diagnostics": {"sql_linter": true}, "display": {"cell_output": "below", "code_editor_font_size": 14, "code_lens": true, "dataframes": "rich", "default_table_max_columns": 50, "default_table_page_size": 10, "default_width": "medium", "reference_highlighting": true, "theme": "light"}, "formatting": {"line_length": 79}, "keymap": {"overrides": {}, "preset": "default"}, "language_servers": {"pylsp": {"enable_flake8": false, "enable_mypy": true, "enable_pydocstyle": false, "enable_pyflakes": false, "enable_pylint": false, "enable_ruff": true, "enabled": false}}, "mcp": {"mcpServers": {}, "presets": []}, "package_management": {"manager": "pip"}, "runtime": {"auto_instantiate": false, "auto_reload": "off", "default_csv_encoding": "utf-8", "default_sql_output": "auto", "on_cell_change": "autorun", "output_max_bytes": 8000000, "reactive_tests": true, "show_tracebacks": false, "std_stream_max_bytes": 1000000, "watcher_on_save": "lazy"}, "save": {"autosave": "off", "autosave_delay": 1000, "format_on_save": false}, "server": {"browser": "default", "follow_symlink": false}, "snippets": {"custom_paths": [], "include_default_snippets": true}},
+            "configOverrides": {},
+            "appConfig": {"app_title": "RQ3: find samples with a taxon", "sql_output": "auto", "width": "medium"},
+            "layout": null,
+            "view": {"showAppCode": false},
+            "notebook": null,
+            "session": null,
+            "runtimeConfig": null
+        }),
+        writable: false,
+        configurable: false,
+      });
+    </script>
+  </body>
+</html>

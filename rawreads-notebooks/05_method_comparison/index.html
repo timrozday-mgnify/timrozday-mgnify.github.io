@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="./favicon.ico" />
+    <!-- Preload is necessary because we show these images when we disconnect from the server,
+    but at that point we cannot load these images from the server -->
+    <link rel="preload" href="./assets/gradient-yHQUC_QB.png" as="image" />
+    <link rel="preload" href="./assets/noise-60BoTA8O.png" as="image" />
+    <!-- Preload the fonts -->
+    <link rel="preload" href="./assets/Lora-VariableFont_wght-CZceb_kH.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/PTSans-Regular-Bam3NpBI.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/PTSans-Bold-C_DwAp7Z.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/FiraMono-Regular-CEsLFVD9.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/FiraMono-Medium-D5MAsWEG.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/FiraMono-Bold-C6PDArdf.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="a marimo app" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <link rel="manifest" href="./manifest.json" />
+
+    <script data-marimo="true">
+      function __resizeIframe(obj) {
+        const scrollbarHeight = 20; // Max between windows, mac, and linux
+
+        function setHeight() {
+          // Guard against race condition where iframe isn't ready
+          if (!obj.contentWindow?.document?.documentElement) {
+            return;
+          }
+          const element = obj.contentWindow.document.documentElement;
+          // If there is no vertical scrollbar, we don't need to resize the iframe
+          if (element.scrollHeight === element.clientHeight) {
+            return;
+          }
+
+          // Create a new height that includes the scrollbar height if it's visible
+          const hasHorizontalScrollbar = element.scrollWidth > element.clientWidth;
+          const newHeight = element.scrollHeight + (hasHorizontalScrollbar ? scrollbarHeight : 0);
+
+          // Only update the height if it's different from the current height
+          if (obj.style.height !== `${newHeight}px`) {
+            obj.style.height = `${newHeight}px`;
+          }
+        }
+
+        // Resize the iframe to the height of the content and bottom scrollbar height
+        setHeight();
+
+        // Resize the iframe when the content changes
+        const resizeObserver = new ResizeObserver((_entries) => {
+          setHeight();
+        });
+        // Only observe if iframe content is ready
+        if (obj.contentWindow?.document?.body) {
+          resizeObserver.observe(obj.contentWindow.document.body);
+        }
+      }
+    </script>
+    <marimo-filename hidden>notebook.py</marimo-filename>
+    <!-- TODO(Trevor): Legacy, required by VS Code plugin. Remove when plugin is updated (see marimo/server/_templates/template.py) -->
+    <marimo-version data-version="{{ version }}" hidden></marimo-version>
+    <marimo-user-config data-config="{{ user_config }}" hidden></marimo-user-config>
+    <marimo-server-token data-token="{{ server_token }}" hidden></marimo-server-token>
+    <!-- /TODO -->
+    <title>05: profiler comparison</title>
+    <script type="module" crossorigin src="./assets/index-s-M1OXjs.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/rolldown-runtime-B0Z9INg1.js">
+    <link rel="modulepreload" crossorigin href="./assets/react-DVplv7_D.js">
+    <link rel="modulepreload" crossorigin href="./assets/compiler-runtime-BrajqUja.js">
+    <link rel="modulepreload" crossorigin href="./assets/useEvent-Dfcbgjhg.js">
+    <link rel="modulepreload" crossorigin href="./assets/react-dom-_LrxgvjW.js">
+    <link rel="modulepreload" crossorigin href="./assets/schemas-Dv42wLFq.js">
+    <link rel="modulepreload" crossorigin href="./assets/isObject-BCaOs5rp.js">
+    <link rel="modulepreload" crossorigin href="./assets/isSymbol-oX0TOjjx.js">
+    <link rel="modulepreload" crossorigin href="./assets/now-Cmx0b_zA.js">
+    <link rel="modulepreload" crossorigin href="./assets/debounce-aFmHgJZY.js">
+    <link rel="modulepreload" crossorigin href="./assets/isArrayLikeObject-DnwgSs_Z.js">
+    <link rel="modulepreload" crossorigin href="./assets/_baseMerge-CQpUq7ep.js">
+    <link rel="modulepreload" crossorigin href="./assets/objects-snlMn4yk.js">
+    <link rel="modulepreload" crossorigin href="./assets/useEventListener-D9cftcHj.js">
+    <link rel="modulepreload" crossorigin href="./assets/invariant-Ci2dTZ72.js">
+    <link rel="modulepreload" crossorigin href="./assets/config-VPSq73n8.js">
+    <link rel="modulepreload" crossorigin href="./assets/utils-B4K466FK.js">
+    <link rel="modulepreload" crossorigin href="./assets/session-DqoWmb7X.js">
+    <link rel="modulepreload" crossorigin href="./assets/Deferred-CrTnjj37.js">
+    <link rel="modulepreload" crossorigin href="./assets/config-DX8Y2WbJ.js">
+    <link rel="modulepreload" crossorigin href="./assets/clsx-DB0hHKMi.js">
+    <link rel="modulepreload" crossorigin href="./assets/cn-ldLVeaqm.js">
+    <link rel="modulepreload" crossorigin href="./assets/jsx-runtime-B74pBk57.js">
+    <link rel="modulepreload" crossorigin href="./assets/fullscreen-B9tHcfpV.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-iaThVDkA.js">
+    <link rel="modulepreload" crossorigin href="./assets/menu-items-BrwnTgyK.js">
+    <link rel="modulepreload" crossorigin href="./assets/use-restore-focus-BxEGwIbk.js">
+    <link rel="modulepreload" crossorigin href="./assets/createLucideIcon-DfJ2oMlA.js">
+    <link rel="modulepreload" crossorigin href="./assets/circle-DXf-VWZG.js">
+    <link rel="modulepreload" crossorigin href="./assets/button-COI-NGrx.js">
+    <link rel="modulepreload" crossorigin href="./assets/check-BQNapYaf.js">
+    <link rel="modulepreload" crossorigin href="./assets/I18nProvider-Cg2I_s1_.js">
+    <link rel="modulepreload" crossorigin href="./assets/useNumberFormatter-D7O_26UI.js">
+    <link rel="modulepreload" crossorigin href="./assets/select-DTBn5eTb.js">
+    <link rel="modulepreload" crossorigin href="./assets/toast-BGzLGnvw.js">
+    <link rel="modulepreload" crossorigin href="./assets/tooltip-C9TuY18o.js">
+    <link rel="modulepreload" crossorigin href="./assets/paths-bkIFVj8h.js">
+    <link rel="modulepreload" crossorigin href="./assets/useLifecycle-Mq4gc5kS.js">
+    <link rel="modulepreload" crossorigin href="./assets/toDate-DOj9Q6uC.js">
+    <link rel="modulepreload" crossorigin href="./assets/database-zap-B_PMVg8T.js">
+    <link rel="modulepreload" crossorigin href="./assets/alert-dialog-BaPGzeOK.js">
+    <link rel="modulepreload" crossorigin href="./assets/arrays-BqUx5USx.js">
+    <link rel="modulepreload" crossorigin href="./assets/once-Haz_uxEL.js">
+    <link rel="modulepreload" crossorigin href="./assets/numbers-Mk3-CcoU.js">
+    <link rel="modulepreload" crossorigin href="./assets/useDebounce-B_ccBZTp.js">
+    <link rel="modulepreload" crossorigin href="./assets/input-BoBxR50a.js">
+    <link rel="modulepreload" crossorigin href="./assets/use-toast-Wu434mLr.js">
+    <link rel="modulepreload" crossorigin href="./assets/requests-lt0JK8Jt.js">
+    <link rel="modulepreload" crossorigin href="./assets/uuid-k9DpjH68.js">
+    <link rel="modulepreload" crossorigin href="./assets/write-secret-modal-DzKAInL2.js">
+    <link rel="modulepreload" crossorigin href="./assets/plus-C5silF6g.js">
+    <link rel="modulepreload" crossorigin href="./assets/trash-2-DcgaW8fn.js">
+    <link rel="modulepreload" crossorigin href="./assets/preload-helper-uBIymjUX.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-Cny7_yZb.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-DBMV4gqt.js">
+    <link rel="modulepreload" crossorigin href="./assets/capabilities-BJvf-MD4.js">
+    <link rel="modulepreload" crossorigin href="./assets/cjs-C49f7GXV.js">
+    <link rel="modulepreload" crossorigin href="./assets/createReducer-DgRODTW6.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-qhAY4L2r.js">
+    <link rel="modulepreload" crossorigin href="./assets/marked.esm-B_3iMIUq.js">
+    <link rel="modulepreload" crossorigin href="./assets/strings-B2vv-ENv.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-BOfh4hMd.js">
+    <link rel="modulepreload" crossorigin href="./assets/badge-crT3E0Rm.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-DtH-7lot.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-BmExfiwX.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-1tmpVXyz.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-LSsCJjA3.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-DusFODSa.js">
+    <link rel="modulepreload" crossorigin href="./assets/stex-Dc5bKD4z.js">
+    <link rel="modulepreload" crossorigin href="./assets/useTheme-COhSHkCj.js">
+    <link rel="modulepreload" crossorigin href="./assets/useAsyncData-C7aJJz0Y.js">
+    <link rel="modulepreload" crossorigin href="./assets/purify.es--06brOip.js">
+    <link rel="modulepreload" crossorigin href="./assets/cells-BRkCaSsh.js">
+    <link rel="modulepreload" crossorigin href="./assets/coerce-CpE6kUdX.js">
+    <link rel="modulepreload" crossorigin href="./assets/get-DjNf4SIX.js">
+    <link rel="modulepreload" crossorigin href="./assets/_hasPath-BmRQipI0.js">
+    <link rel="modulepreload" crossorigin href="./assets/hasIn-yw4sIeJR.js">
+    <link rel="modulepreload" crossorigin href="./assets/_baseSet-Bpdo9AvU.js">
+    <link rel="modulepreload" crossorigin href="./assets/pick-DKIID_Mo.js">
+    <link rel="modulepreload" crossorigin href="./assets/state-BAJYRhmO.js">
+    <link rel="modulepreload" crossorigin href="./assets/state-C3oDoyFe.js">
+    <link rel="modulepreload" crossorigin href="./assets/LazyAnyLanguageCodeMirror-CKcCbG2G.js">
+    <link rel="modulepreload" crossorigin href="./assets/copy-D8O_CYCG.js">
+    <link rel="modulepreload" crossorigin href="./assets/micromark-factory-space-D9Dr-k4J.js">
+    <link rel="modulepreload" crossorigin href="./assets/chunk-YOKDWASO-BIpRENEC.js">
+    <link rel="modulepreload" crossorigin href="./assets/markdown-renderer-BG3sp2rs.js">
+    <link rel="modulepreload" crossorigin href="./assets/copy-Djr5m5ac.js">
+    <link rel="modulepreload" crossorigin href="./assets/copy-icon-BIiRXh_3.js">
+    <link rel="modulepreload" crossorigin href="./assets/useRunCells-B2vUhREg.js">
+    <link rel="modulepreload" crossorigin href="./assets/RenderHTML-BbOqmHy3.js">
+    <link rel="modulepreload" crossorigin href="./assets/blob-D5nfNHOo.js">
+    <link rel="modulepreload" crossorigin href="./assets/kbd-pdKBv96t.js">
+    <link rel="modulepreload" crossorigin href="./assets/useInstallPackage-iX1eufdl.js">
+    <link rel="modulepreload" crossorigin href="./assets/errors-DCrsa1nH.js">
+    <link rel="modulepreload" crossorigin href="./assets/api-BeC_VSGv.js">
+    <link rel="modulepreload" crossorigin href="./assets/share-BZW3tzEX.js">
+    <link rel="modulepreload" crossorigin href="./assets/events-CbeVJ6OD.js">
+    <link rel="modulepreload" crossorigin href="./assets/state-_Qai_QyX.js">
+    <link rel="modulepreload" crossorigin href="./assets/pair-CaQyK6En.js">
+    <link rel="modulepreload" crossorigin href="./assets/ErrorBoundary-Gl5nCA8C.js">
+    <link rel="modulepreload" crossorigin href="./assets/config-BOKzA3tF.js">
+    <link rel="modulepreload" crossorigin href="./assets/chevron-right-eAtVhbNZ.js">
+    <link rel="modulepreload" crossorigin href="./assets/dropdown-menu-C1rnl-0o.js">
+    <link rel="modulepreload" crossorigin href="./assets/html-to-image-DK9Zl1lU.js">
+    <link rel="modulepreload" crossorigin href="./assets/download-DCJXy66H.js">
+    <link rel="modulepreload" crossorigin href="./assets/switch-CTaiAjrz.js">
+    <link rel="modulepreload" crossorigin href="./assets/tabs-BuQlZFbt.js">
+    <link rel="modulepreload" crossorigin href="./assets/table-DG7Ap4H4.js">
+    <link rel="modulepreload" crossorigin href="./assets/eye-off-CxVozGAC.js">
+    <link rel="modulepreload" crossorigin href="./assets/refresh-cw-Qw1f8Jhy.js">
+    <link rel="modulepreload" crossorigin href="./assets/tree-actions-GM5E_bUs.js">
+    <link rel="modulepreload" crossorigin href="./assets/ellipsis-63DyBLHQ.js">
+    <link rel="modulepreload" crossorigin href="./assets/external-link-UrX9KO36.js">
+    <link rel="modulepreload" crossorigin href="./assets/spinner-DyNE-o8o.js">
+    <link rel="modulepreload" crossorigin href="./assets/message-circle-C3rKm8_a.js">
+    <link rel="modulepreload" crossorigin href="./assets/hat-glasses-C8RhSVii.js">
+    <link rel="modulepreload" crossorigin href="./assets/package-GSoSTiIK.js">
+    <link rel="modulepreload" crossorigin href="./assets/datasource-Cq6x_5ML.js">
+    <link rel="modulepreload" crossorigin href="./assets/alert-DTaqCu_d.js">
+    <link rel="modulepreload" crossorigin href="./assets/state-XsPO8hNi.js">
+    <link rel="modulepreload" crossorigin href="./assets/cell-link-LSth_8hT.js">
+    <link rel="modulepreload" crossorigin href="./assets/MarimoErrorOutput-D60XkCny.js">
+    <link rel="modulepreload" crossorigin href="./assets/useDateFormatter-DA-62E-Y.js">
+    <link rel="modulepreload" crossorigin href="./assets/en-US-Buu61juQ.js">
+    <link rel="modulepreload" crossorigin href="./assets/isValid-q_Ad80ug.js">
+    <link rel="modulepreload" crossorigin href="./assets/dates-BbFQ2oE4.js">
+    <link rel="modulepreload" crossorigin href="./assets/defaultLocale-CNPGWpMu.js">
+    <link rel="modulepreload" crossorigin href="./assets/precisionRound-Bq_nmf5u.js">
+    <link rel="modulepreload" crossorigin href="./assets/defaultLocale-D5bOh7g6.js">
+    <link rel="modulepreload" crossorigin href="./assets/vega-loader.browser-CLRkNgm7.js">
+    <link rel="modulepreload" crossorigin href="./assets/tooltip-mT3CGest.js">
+    <link rel="modulepreload" crossorigin href="./assets/react-icons.esm-D6tfmvq8.js">
+    <link rel="modulepreload" crossorigin href="./assets/extends-CvVTau-c.js">
+    <link rel="modulepreload" crossorigin href="./assets/objectWithoutPropertiesLoose-Do6ywDBO.js">
+    <link rel="modulepreload" crossorigin href="./assets/useIframeCapabilities-CwTkczVN.js">
+    <link rel="modulepreload" crossorigin href="./assets/error-banner-Cd69vvyX.js">
+    <link rel="modulepreload" crossorigin href="./assets/utils-CaQYvazl.js">
+    <link rel="modulepreload" crossorigin href="./assets/formats-yZ06h1Pl.js">
+    <link rel="modulepreload" crossorigin href="./assets/table-vrvqpuKJ.js">
+    <link rel="modulepreload" crossorigin href="./assets/react-resizable-panels.browser.esm-Dbe0MrFr.js">
+    <link rel="modulepreload" crossorigin href="./assets/JsonOutput-D6HIIsCb.js">
+    <link rel="modulepreload" crossorigin href="./assets/chart-no-axes-column-C4_v6fQW.js">
+    <link rel="modulepreload" crossorigin href="./assets/square-function-_W_Lo0P4.js">
+    <link rel="modulepreload" crossorigin href="./assets/spec-BfSBcO5B.js">
+    <link rel="modulepreload" crossorigin href="./assets/semaphore-BjoL5P0h.js">
+    <link rel="modulepreload" crossorigin href="./assets/fileToBase64-BgBraYAr.js">
+    <link rel="modulepreload" crossorigin href="./assets/useBoolean-BDD6_xQQ.js">
+    <link rel="modulepreload" crossorigin href="./assets/code-xml-SQaZqvcO.js">
+    <link rel="modulepreload" crossorigin href="./assets/file-headphone-Dl35U6h3.js">
+    <link rel="modulepreload" crossorigin href="./assets/file-BPBVl9pl.js">
+    <link rel="modulepreload" crossorigin href="./assets/image-wZvTj8WY.js">
+    <link rel="modulepreload" crossorigin href="./assets/file-icons-CdJgUy-I.js">
+    <link rel="modulepreload" crossorigin href="./assets/globe-UdPdIbF7.js">
+    <link rel="modulepreload" crossorigin href="./assets/esm-CI_o7NhW.js">
+    <link rel="modulepreload" crossorigin href="./assets/useAddCell-GR7eEQrT.js">
+    <link rel="modulepreload" crossorigin href="./assets/readonly-python-code-DCSMIsTX.js">
+    <link rel="modulepreload" crossorigin href="./assets/data-grid-types-DgHVN_Zz.js">
+    <link rel="modulepreload" crossorigin href="./assets/glide-utils-CIrAxdjv.js">
+    <link rel="modulepreload" crossorigin href="./assets/column-preview-Cm2D6vyX.js">
+    <link rel="modulepreload" crossorigin href="./assets/square-BPmgQFnh.js">
+    <link rel="modulepreload" crossorigin href="./assets/triangle-alert-DmIqR8sY.js">
+    <link rel="modulepreload" crossorigin href="./assets/prop-types-Djf4O40e.js">
+    <link rel="modulepreload" crossorigin href="./assets/es-Cqst59WX.js">
+    <link rel="modulepreload" crossorigin href="./assets/package-data-dv4FBHxR.js">
+    <link rel="modulepreload" crossorigin href="./assets/markdown-export-DzhB1FrN.js">
+    <link rel="modulepreload" crossorigin href="./assets/renderShortcut-BkVJQ_Zh.js">
+    <link rel="modulepreload" crossorigin href="./assets/bundle.esm-D3tw5rqW.js">
+    <link rel="modulepreload" crossorigin href="./assets/icons-CiZ_8zS-.js">
+    <link rel="modulepreload" crossorigin href="./assets/useDeepCompareMemoize-DFIVN9dn.js">
+    <link rel="modulepreload" crossorigin href="./assets/pathUtils-DPmlLd-r.js">
+    <link rel="modulepreload" crossorigin href="./assets/floating-outline-XD9FAV-f.js">
+    <link rel="stylesheet" crossorigin href="./assets/cells-0PFKL3SH.css">
+    <link rel="stylesheet" crossorigin href="./assets/markdown-renderer-DjIHoF9Z.css">
+    <link rel="stylesheet" crossorigin href="./assets/JsonOutput-B0GmlMnR.css">
+    <link rel="stylesheet" crossorigin href="./assets/index-Bcdzex-3.css">
+  <marimo-wasm hidden=""></marimo-wasm>
+    <script>
+        if (window.location.protocol === 'file:') {
+            alert('Warning: This file must be served by an HTTP server to function correctly.');
+        }
+    </script>
+    
+    <style>
+        #save-button {
+            display: none !important;
+        }
+        #filename-input {
+            display: none !important;
+        }
+    </style>
+    
+<script data-marimo="true">
+    Object.defineProperty(window, "__MARIMO_EXPORT_CONTEXT__", {
+        value: Object.freeze({
+            trusted: true,
+            notebookCode: "import marimo\n\n__generated_with = \"0.25.2\"\napp = marimo.App(width=\"medium\", app_title=\"05: profiler comparison\")\n\n\n@app.cell(hide_code=True)\ndef _(mo):\n    mo.md(r\"\"\"\n    # 05. Profiler comparison (presenter only)\n\n    Figures from the comparison pipeline (`pipelines/profiler-comparison/`, design in `docs/04_profiler_comparison.md`): MGnify RawR (mOTUs 3, SILVA SSU) against MetaPhlAn 4, sylph, sourmash and bowtie2 + CoverM, on the same 5 M read pairs.\n\n    **Input:** copy the pipeline's `results/comparison/` folder to `results/profiler_comparison/` in this repo. It holds four tables written by `bin/compare_profiles.py`:\n\n    | File | Columns |\n    |---|---|\n    | `long_profiles.tsv` | sample, arm, method, genus, rel_abund |\n    | `unknown.tsv` | sample, arm, method, unknown_frac |\n    | `truth_metrics.tsv` | sample, arm, method, recall, precision, bray_curtis, fp_abund, fp_genera (mocks only, against CoverM on the strain genomes) |\n    | `pairwise.tsv` | not used here: it only pairs methods within one arm, so it leaves out RawR |\n\n    Sample groups (`zymo`, `well_studied`, `understudied`, `qc_case`) come from the pipeline's samplesheet.\n    \"\"\")\n    return\n\n\n@app.cell(hide_code=True)\nasync def _():\n    # Where the tables are: the repo root locally. In the browser (WASM), notebooks/wasm/build.sh puts\n    # them in profiler_comparison/ next to the site; fetch them into the same layout.\n    import sys as _sys\n    import marimo as _mo\n\n    ROOT = _mo.notebook_dir().parent\n    if _sys.platform == \"emscripten\":\n        from pathlib import Path as _Path\n        from pyodide.http import pyfetch\n\n        ROOT = _Path.cwd() / \"repo\"\n        _base = str(_mo.notebook_location()).rstrip(\"/\") + \"/../profiler_comparison/\"\n        for _src, _dest in [(\"long_profiles.tsv\", \"results/profiler_comparison/long_profiles.tsv\"),\n                            (\"unknown.tsv\", \"results/profiler_comparison/unknown.tsv\"),\n                            (\"truth_metrics.tsv\", \"results/profiler_comparison/truth_metrics.tsv\"),\n                            (\"samplesheet.csv\", \"pipelines/profiler-comparison/samplesheet.csv\")]:\n            _r = await pyfetch(_base + _src)\n            if _r.ok:\n                (ROOT / _dest).parent.mkdir(parents=True, exist_ok=True)\n                (ROOT / _dest).write_bytes(await _r.bytes())\n    return (ROOT,)\n\n\n@app.cell\ndef _():\n    import marimo as mo\n    import matplotlib.pyplot as plt\n    import numpy as np\n    import pandas as pd\n\n    return mo, np, pd, plt\n\n\n@app.cell\ndef _(ROOT, mo, pd):\n    COMP = ROOT / \"results/profiler_comparison\"\n    SHEET = ROOT / \"pipelines/profiler-comparison/samplesheet.csv\"\n    mo.stop(not (COMP / \"long_profiles.tsv\").exists(), mo.md(\n        f\"**No comparison results in `{COMP}`.** Run the pipeline, then copy its `results/comparison/` folder there.\"))\n\n    sheet = pd.read_csv(SHEET).set_index(\"sample\")\n    long = pd.read_csv(COMP / \"long_profiles.tsv\", sep=\"\\t\")\n    unknown = pd.read_csv(COMP / \"unknown.tsv\", sep=\"\\t\")\n    truth = pd.read_csv(COMP / \"truth_metrics.tsv\", sep=\"\\t\")\n    for _d in (long, unknown, truth):\n        _d[\"group\"] = _d[\"sample\"].map(sheet.group)\n    mo.vstack([\n        mo.md(f\"arms: {sorted(long.arm.unique())}, methods: {sorted(long.method.unique())}\"),\n        long.groupby(\"group\")[\"sample\"].nunique(),\n    ])\n    return long, sheet, truth, unknown\n\n\n@app.cell(hide_code=True)\ndef _(mo):\n    mo.md(r\"\"\"\n    ## 1. Accuracy on the Zymo mocks\n\n    Recall and precision (genera at \u2265 0.1%) and Bray\u2013Curtis distance to the truth, per method. Clean reads (or the MGnify arm for RawR). Yeasts are absent from GTDB, so read precision with that in mind.\n    \"\"\")\n    return\n\n\n@app.cell\ndef _(mo, plt, truth):\n    _zt = truth[(truth.group == \"zymo\") \u0026 truth.arm.isin([\"clean\", \"mgnify\"])]\n    _order = _zt.groupby(\"method\").bray_curtis.median().sort_values().index\n    _fig, _axes = plt.subplots(1, 3, figsize=(12, 3.5), sharey=True)\n    for _ax, _col in zip(_axes, [\"recall\", \"precision\", \"bray_curtis\"]):\n        for _i, _m in enumerate(_order):\n            _v = _zt.loc[_zt.method == _m, _col]\n            _ax.scatter(_v, [_i] * len(_v), s=25, alpha=0.7)\n            _ax.plot([_v.median()] * 2, [_i - 0.3, _i + 0.3], c=\"k\")\n        _ax.set_title(_col + (\" (lower is better)\" if _col == \"bray_curtis\" else \"\"))\n    _axes[0].set_yticks(range(len(_order)), _order)\n    plt.tight_layout()\n    mo.vstack([_fig, _zt.groupby(\"method\")[[\"recall\", \"precision\", \"bray_curtis\", \"fp_abund\"]].median().loc[_order].round(3)])\n    return\n\n\n@app.cell(hide_code=True)\ndef _(mo):\n    mo.md(r\"\"\"\n    ### Detection limit: the D6310 log-distributed mock (ERR2935805)\n\n    For each truth genus, its abundance and whether each method found it (\u2265 0.1%).\n    \"\"\")\n    return\n\n\n@app.cell\ndef _(long, plt, sheet):\n    LOG_MOCK = \"ERR2935805\"\n    _tm = sheet.loc[LOG_MOCK, \"truth_method\"]\n    _lm = long[(long[\"sample\"] == LOG_MOCK) \u0026 long.arm.isin([\"clean\", \"mgnify\"])]\n    _t = _lm[_lm.method == _tm].set_index(\"genus\").rel_abund.sort_values(ascending=False)\n    _found = _lm.pivot_table(index=\"genus\", columns=\"method\", values=\"rel_abund\").reindex(_t.index).fillna(0) \u003E= 0.001\n    _found = _found.drop(columns=_tm, errors=\"ignore\")\n    _ax = plt.figure(figsize=(7, 3.5)).gca()\n    for _i, _m in enumerate(_found.columns):\n        _ax.scatter(_t[_found[_m]], [_i] * _found[_m].sum(), marker=\"o\", c=\"k\", s=20)\n        _ax.scatter(_t[~_found[_m]], [_i] * (~_found[_m]).sum(), marker=\"x\", c=\"grey\", s=20)\n    _ax.set(xscale=\"log\", xlabel=\"truth abundance (o found, x missed)\")\n    _ax.set_yticks(range(_found.shape[1]), _found.columns)\n    _ax\n    return\n\n\n@app.cell(hide_code=True)\ndef _(mo):\n    mo.md(r\"\"\"\n    ## 2. Unknown fraction per method and sample group\n\n    What each method could not place. This is the \"database suitability\" figure: the gap between human gut and the understudied biomes.\n    \"\"\")\n    return\n\n\n@app.cell\ndef _(np, plt, unknown):\n    u = unknown[unknown.arm.isin([\"clean\", \"mgnify\"])]\n    _tab = u.pivot_table(index=\"method\", columns=\"group\", values=\"unknown_frac\", aggfunc=\"median\")\n    _tab = _tab[[g for g in [\"zymo\", \"well_studied\", \"understudied\", \"qc_case\"] if g in _tab]]\n    _fig, _ax = plt.subplots(figsize=(6, 3.5))\n    _im = _ax.imshow(_tab.values, cmap=\"Blues\", vmin=0, vmax=1)\n    _ax.set_xticks(range(_tab.shape[1]), _tab.columns)\n    _ax.set_yticks(range(_tab.shape[0]), _tab.index)\n    for (_i, _j), _v in np.ndenumerate(_tab.values):\n        _ax.text(_j, _i, f\"{_v:.2f}\", ha=\"center\", va=\"center\", color=\"white\" if _v \u003E 0.6 else \"black\", fontsize=8)\n    _fig.colorbar(_im, label=\"median unknown fraction\")\n    _ax.set_title(\"Unknown fraction (clean reads)\")\n    _ax\n    return (u,)\n\n\n@app.cell\ndef _(u):\n    # per sample, for the understudied runs\n    u[u.group == \"understudied\"].pivot_table(index=\"sample\", columns=\"method\", values=\"unknown_frac\").round(2)\n    return\n\n\n@app.cell(hide_code=True)\ndef _(mo):\n    mo.md(r\"\"\"\n    ## 3. How much do the methods agree?\n\n    Mean Bray\u2013Curtis between each pair of methods, per sample group (0 = identical genus profiles). Computed here from `long_profiles.tsv` rather than `pairwise.tsv`: the pipeline pairs methods within one arm, so its table never compares RawR (arm `mgnify`) with the other tools. RawR runs on the same subsampled clean reads, so it is treated as `clean`.\n    \"\"\")\n    return\n\n\n@app.cell\ndef _(long, np, plt, sheet):\n    def bray(a, b):\n        a, b = a.align(b, fill_value=0)\n        return float((a - b).abs().sum() / (a + b).sum())\n\n\n    _cl = long[long.arm.isin([\"clean\", \"mgnify\"])]\n    _prof = {k: g.set_index(\"genus\").rel_abund for k, g in _cl.groupby([\"sample\", \"method\"])}\n    _methods = sorted(_cl.method.unique())\n    _groups = [g for g in [\"zymo\", \"well_studied\", \"understudied\"] if g in set(_cl.group)]\n    _fig, _axes = plt.subplots(1, len(_groups), figsize=(4.2 * len(_groups), 3.8))\n    for _ax, _g in zip(np.atleast_1d(_axes), _groups):\n        _smp = sheet.index[sheet.group == _g]\n        _v = np.array([[np.nanmean([bray(_prof[(s, a)], _prof[(s, b)]) for s in _smp if (s, a) in _prof and (s, b) in _prof] or [np.nan])\n                        for b in _methods] for a in _methods])\n        _im = _ax.imshow(_v, cmap=\"viridis_r\", vmin=0, vmax=1)\n        _ax.set_xticks(range(len(_methods)), _methods, rotation=90, fontsize=8)\n        _ax.set_yticks(range(len(_methods)), _methods, fontsize=8)\n        _ax.set_title(_g)\n    _fig.colorbar(_im, ax=_axes, label=\"mean Bray-Curtis\")\n    _fig\n    return (bray,)\n\n\n@app.cell(hide_code=True)\ndef _(mo):\n    mo.md(r\"\"\"\n    ## 4. Ablation: what do QC and decontamination change?\n\n    Bray\u2013Curtis between each method's profile on raw reads and on clean reads, for the QC cases. Needs the pipeline run with `--arms raw,qc,clean`.\n    \"\"\")\n    return\n\n\n@app.cell\ndef _(bray, long, mo, pd, sheet):\n    _arms = set(long.arm)\n    if {\"raw\", \"clean\"} \u003C= _arms:\n        _prof = {k: g.set_index(\"genus\").rel_abund for k, g in long.groupby([\"sample\", \"arm\", \"method\"])}\n        _abl = pd.DataFrame([{\"sample\": s, \"method\": m, \"bc_raw_vs_clean\": bray(_prof[(s, \"raw\", m)], _prof[(s, \"clean\", m)])}\n                             for (s, arm, m) in _prof if arm == \"raw\" and (s, \"clean\", m) in _prof])\n        _abl[\"group\"] = _abl[\"sample\"].map(sheet.group)\n        _out = _abl.pivot_table(index=[\"group\", \"sample\"], columns=\"method\", values=\"bc_raw_vs_clean\").round(3)\n    else:\n        _out = mo.md(f\"Only arms {sorted(_arms)}: rerun the pipeline with `--arms raw,qc,clean` for the ablation.\")\n    _out\n    return\n\n\n@app.cell(hide_code=True)\ndef _(mo):\n    mo.md(r\"\"\"\n    Expected (docs/04): a large raw-vs-clean change for SRR25246618 (80% genuine human DNA), and near zero for the marine runs if their decontamination loss is only a loss of depth. A large change for SRR5788065 would mean the loss also biases composition.\n    \"\"\")\n    return\n\n\nif __name__ == \"__main__\":\n    app.run()\n",
+        }),
+        writable: false,
+        configurable: false,
+    });
+</script>
+<marimo-code hidden="">import%20marimo%0A%0A__generated_with%20%3D%20%220.25.2%22%0Aapp%20%3D%20marimo.App(width%3D%22medium%22%2C%20app_title%3D%2205%3A%20profiler%20comparison%22)%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%0A%20%20%20%20%23%2005.%20Profiler%20comparison%20(presenter%20only)%0A%0A%20%20%20%20Figures%20from%20the%20comparison%20pipeline%20(%60pipelines%2Fprofiler-comparison%2F%60%2C%20design%20in%20%60docs%2F04_profiler_comparison.md%60)%3A%20MGnify%20RawR%20(mOTUs%203%2C%20SILVA%20SSU)%20against%20MetaPhlAn%204%2C%20sylph%2C%20sourmash%20and%20bowtie2%20%2B%20CoverM%2C%20on%20the%20same%205%20M%20read%20pairs.%0A%0A%20%20%20%20**Input%3A**%20copy%20the%20pipeline's%20%60results%2Fcomparison%2F%60%20folder%20to%20%60results%2Fprofiler_comparison%2F%60%20in%20this%20repo.%20It%20holds%20four%20tables%20written%20by%20%60bin%2Fcompare_profiles.py%60%3A%0A%0A%20%20%20%20%7C%20File%20%7C%20Columns%20%7C%0A%20%20%20%20%7C---%7C---%7C%0A%20%20%20%20%7C%20%60long_profiles.tsv%60%20%7C%20sample%2C%20arm%2C%20method%2C%20genus%2C%20rel_abund%20%7C%0A%20%20%20%20%7C%20%60unknown.tsv%60%20%7C%20sample%2C%20arm%2C%20method%2C%20unknown_frac%20%7C%0A%20%20%20%20%7C%20%60truth_metrics.tsv%60%20%7C%20sample%2C%20arm%2C%20method%2C%20recall%2C%20precision%2C%20bray_curtis%2C%20fp_abund%2C%20fp_genera%20(mocks%20only%2C%20against%20CoverM%20on%20the%20strain%20genomes)%20%7C%0A%20%20%20%20%7C%20%60pairwise.tsv%60%20%7C%20not%20used%20here%3A%20it%20only%20pairs%20methods%20within%20one%20arm%2C%20so%20it%20leaves%20out%20RawR%20%7C%0A%0A%20%20%20%20Sample%20groups%20(%60zymo%60%2C%20%60well_studied%60%2C%20%60understudied%60%2C%20%60qc_case%60)%20come%20from%20the%20pipeline's%20samplesheet.%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Aasync%20def%20_()%3A%0A%20%20%20%20%23%20Where%20the%20tables%20are%3A%20the%20repo%20root%20locally.%20In%20the%20browser%20(WASM)%2C%20notebooks%2Fwasm%2Fbuild.sh%20puts%0A%20%20%20%20%23%20them%20in%20profiler_comparison%2F%20next%20to%20the%20site%3B%20fetch%20them%20into%20the%20same%20layout.%0A%20%20%20%20import%20sys%20as%20_sys%0A%20%20%20%20import%20marimo%20as%20_mo%0A%0A%20%20%20%20ROOT%20%3D%20_mo.notebook_dir().parent%0A%20%20%20%20if%20_sys.platform%20%3D%3D%20%22emscripten%22%3A%0A%20%20%20%20%20%20%20%20from%20pathlib%20import%20Path%20as%20_Path%0A%20%20%20%20%20%20%20%20from%20pyodide.http%20import%20pyfetch%0A%0A%20%20%20%20%20%20%20%20ROOT%20%3D%20_Path.cwd()%20%2F%20%22repo%22%0A%20%20%20%20%20%20%20%20_base%20%3D%20str(_mo.notebook_location()).rstrip(%22%2F%22)%20%2B%20%22%2F..%2Fprofiler_comparison%2F%22%0A%20%20%20%20%20%20%20%20for%20_src%2C%20_dest%20in%20%5B(%22long_profiles.tsv%22%2C%20%22results%2Fprofiler_comparison%2Flong_profiles.tsv%22)%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20(%22unknown.tsv%22%2C%20%22results%2Fprofiler_comparison%2Funknown.tsv%22)%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20(%22truth_metrics.tsv%22%2C%20%22results%2Fprofiler_comparison%2Ftruth_metrics.tsv%22)%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20(%22samplesheet.csv%22%2C%20%22pipelines%2Fprofiler-comparison%2Fsamplesheet.csv%22)%5D%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20_r%20%3D%20await%20pyfetch(_base%20%2B%20_src)%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20_r.ok%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20(ROOT%20%2F%20_dest).parent.mkdir(parents%3DTrue%2C%20exist_ok%3DTrue)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20(ROOT%20%2F%20_dest).write_bytes(await%20_r.bytes())%0A%20%20%20%20return%20(ROOT%2C)%0A%0A%0A%40app.cell%0Adef%20_()%3A%0A%20%20%20%20import%20marimo%20as%20mo%0A%20%20%20%20import%20matplotlib.pyplot%20as%20plt%0A%20%20%20%20import%20numpy%20as%20np%0A%20%20%20%20import%20pandas%20as%20pd%0A%0A%20%20%20%20return%20mo%2C%20np%2C%20pd%2C%20plt%0A%0A%0A%40app.cell%0Adef%20_(ROOT%2C%20mo%2C%20pd)%3A%0A%20%20%20%20COMP%20%3D%20ROOT%20%2F%20%22results%2Fprofiler_comparison%22%0A%20%20%20%20SHEET%20%3D%20ROOT%20%2F%20%22pipelines%2Fprofiler-comparison%2Fsamplesheet.csv%22%0A%20%20%20%20mo.stop(not%20(COMP%20%2F%20%22long_profiles.tsv%22).exists()%2C%20mo.md(%0A%20%20%20%20%20%20%20%20f%22**No%20comparison%20results%20in%20%60%7BCOMP%7D%60.**%20Run%20the%20pipeline%2C%20then%20copy%20its%20%60results%2Fcomparison%2F%60%20folder%20there.%22))%0A%0A%20%20%20%20sheet%20%3D%20pd.read_csv(SHEET).set_index(%22sample%22)%0A%20%20%20%20long%20%3D%20pd.read_csv(COMP%20%2F%20%22long_profiles.tsv%22%2C%20sep%3D%22%5Ct%22)%0A%20%20%20%20unknown%20%3D%20pd.read_csv(COMP%20%2F%20%22unknown.tsv%22%2C%20sep%3D%22%5Ct%22)%0A%20%20%20%20truth%20%3D%20pd.read_csv(COMP%20%2F%20%22truth_metrics.tsv%22%2C%20sep%3D%22%5Ct%22)%0A%20%20%20%20for%20_d%20in%20(long%2C%20unknown%2C%20truth)%3A%0A%20%20%20%20%20%20%20%20_d%5B%22group%22%5D%20%3D%20_d%5B%22sample%22%5D.map(sheet.group)%0A%20%20%20%20mo.vstack(%5B%0A%20%20%20%20%20%20%20%20mo.md(f%22arms%3A%20%7Bsorted(long.arm.unique())%7D%2C%20methods%3A%20%7Bsorted(long.method.unique())%7D%22)%2C%0A%20%20%20%20%20%20%20%20long.groupby(%22group%22)%5B%22sample%22%5D.nunique()%2C%0A%20%20%20%20%5D)%0A%20%20%20%20return%20long%2C%20sheet%2C%20truth%2C%20unknown%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%0A%20%20%20%20%23%23%201.%20Accuracy%20on%20the%20Zymo%20mocks%0A%0A%20%20%20%20Recall%20and%20precision%20(genera%20at%20%E2%89%A5%200.1%25)%20and%20Bray%E2%80%93Curtis%20distance%20to%20the%20truth%2C%20per%20method.%20Clean%20reads%20(or%20the%20MGnify%20arm%20for%20RawR).%20Yeasts%20are%20absent%20from%20GTDB%2C%20so%20read%20precision%20with%20that%20in%20mind.%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_(mo%2C%20plt%2C%20truth)%3A%0A%20%20%20%20_zt%20%3D%20truth%5B(truth.group%20%3D%3D%20%22zymo%22)%20%26%20truth.arm.isin(%5B%22clean%22%2C%20%22mgnify%22%5D)%5D%0A%20%20%20%20_order%20%3D%20_zt.groupby(%22method%22).bray_curtis.median().sort_values().index%0A%20%20%20%20_fig%2C%20_axes%20%3D%20plt.subplots(1%2C%203%2C%20figsize%3D(12%2C%203.5)%2C%20sharey%3DTrue)%0A%20%20%20%20for%20_ax%2C%20_col%20in%20zip(_axes%2C%20%5B%22recall%22%2C%20%22precision%22%2C%20%22bray_curtis%22%5D)%3A%0A%20%20%20%20%20%20%20%20for%20_i%2C%20_m%20in%20enumerate(_order)%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20_v%20%3D%20_zt.loc%5B_zt.method%20%3D%3D%20_m%2C%20_col%5D%0A%20%20%20%20%20%20%20%20%20%20%20%20_ax.scatter(_v%2C%20%5B_i%5D%20*%20len(_v)%2C%20s%3D25%2C%20alpha%3D0.7)%0A%20%20%20%20%20%20%20%20%20%20%20%20_ax.plot(%5B_v.median()%5D%20*%202%2C%20%5B_i%20-%200.3%2C%20_i%20%2B%200.3%5D%2C%20c%3D%22k%22)%0A%20%20%20%20%20%20%20%20_ax.set_title(_col%20%2B%20(%22%20(lower%20is%20better)%22%20if%20_col%20%3D%3D%20%22bray_curtis%22%20else%20%22%22))%0A%20%20%20%20_axes%5B0%5D.set_yticks(range(len(_order))%2C%20_order)%0A%20%20%20%20plt.tight_layout()%0A%20%20%20%20mo.vstack(%5B_fig%2C%20_zt.groupby(%22method%22)%5B%5B%22recall%22%2C%20%22precision%22%2C%20%22bray_curtis%22%2C%20%22fp_abund%22%5D%5D.median().loc%5B_order%5D.round(3)%5D)%0A%20%20%20%20return%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%0A%20%20%20%20%23%23%23%20Detection%20limit%3A%20the%20D6310%20log-distributed%20mock%20(ERR2935805)%0A%0A%20%20%20%20For%20each%20truth%20genus%2C%20its%20abundance%20and%20whether%20each%20method%20found%20it%20(%E2%89%A5%200.1%25).%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_(long%2C%20plt%2C%20sheet)%3A%0A%20%20%20%20LOG_MOCK%20%3D%20%22ERR2935805%22%0A%20%20%20%20_tm%20%3D%20sheet.loc%5BLOG_MOCK%2C%20%22truth_method%22%5D%0A%20%20%20%20_lm%20%3D%20long%5B(long%5B%22sample%22%5D%20%3D%3D%20LOG_MOCK)%20%26%20long.arm.isin(%5B%22clean%22%2C%20%22mgnify%22%5D)%5D%0A%20%20%20%20_t%20%3D%20_lm%5B_lm.method%20%3D%3D%20_tm%5D.set_index(%22genus%22).rel_abund.sort_values(ascending%3DFalse)%0A%20%20%20%20_found%20%3D%20_lm.pivot_table(index%3D%22genus%22%2C%20columns%3D%22method%22%2C%20values%3D%22rel_abund%22).reindex(_t.index).fillna(0)%20%3E%3D%200.001%0A%20%20%20%20_found%20%3D%20_found.drop(columns%3D_tm%2C%20errors%3D%22ignore%22)%0A%20%20%20%20_ax%20%3D%20plt.figure(figsize%3D(7%2C%203.5)).gca()%0A%20%20%20%20for%20_i%2C%20_m%20in%20enumerate(_found.columns)%3A%0A%20%20%20%20%20%20%20%20_ax.scatter(_t%5B_found%5B_m%5D%5D%2C%20%5B_i%5D%20*%20_found%5B_m%5D.sum()%2C%20marker%3D%22o%22%2C%20c%3D%22k%22%2C%20s%3D20)%0A%20%20%20%20%20%20%20%20_ax.scatter(_t%5B~_found%5B_m%5D%5D%2C%20%5B_i%5D%20*%20(~_found%5B_m%5D).sum()%2C%20marker%3D%22x%22%2C%20c%3D%22grey%22%2C%20s%3D20)%0A%20%20%20%20_ax.set(xscale%3D%22log%22%2C%20xlabel%3D%22truth%20abundance%20(o%20found%2C%20x%20missed)%22)%0A%20%20%20%20_ax.set_yticks(range(_found.shape%5B1%5D)%2C%20_found.columns)%0A%20%20%20%20_ax%0A%20%20%20%20return%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%0A%20%20%20%20%23%23%202.%20Unknown%20fraction%20per%20method%20and%20sample%20group%0A%0A%20%20%20%20What%20each%20method%20could%20not%20place.%20This%20is%20the%20%22database%20suitability%22%20figure%3A%20the%20gap%20between%20human%20gut%20and%20the%20understudied%20biomes.%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_(np%2C%20plt%2C%20unknown)%3A%0A%20%20%20%20u%20%3D%20unknown%5Bunknown.arm.isin(%5B%22clean%22%2C%20%22mgnify%22%5D)%5D%0A%20%20%20%20_tab%20%3D%20u.pivot_table(index%3D%22method%22%2C%20columns%3D%22group%22%2C%20values%3D%22unknown_frac%22%2C%20aggfunc%3D%22median%22)%0A%20%20%20%20_tab%20%3D%20_tab%5B%5Bg%20for%20g%20in%20%5B%22zymo%22%2C%20%22well_studied%22%2C%20%22understudied%22%2C%20%22qc_case%22%5D%20if%20g%20in%20_tab%5D%5D%0A%20%20%20%20_fig%2C%20_ax%20%3D%20plt.subplots(figsize%3D(6%2C%203.5))%0A%20%20%20%20_im%20%3D%20_ax.imshow(_tab.values%2C%20cmap%3D%22Blues%22%2C%20vmin%3D0%2C%20vmax%3D1)%0A%20%20%20%20_ax.set_xticks(range(_tab.shape%5B1%5D)%2C%20_tab.columns)%0A%20%20%20%20_ax.set_yticks(range(_tab.shape%5B0%5D)%2C%20_tab.index)%0A%20%20%20%20for%20(_i%2C%20_j)%2C%20_v%20in%20np.ndenumerate(_tab.values)%3A%0A%20%20%20%20%20%20%20%20_ax.text(_j%2C%20_i%2C%20f%22%7B_v%3A.2f%7D%22%2C%20ha%3D%22center%22%2C%20va%3D%22center%22%2C%20color%3D%22white%22%20if%20_v%20%3E%200.6%20else%20%22black%22%2C%20fontsize%3D8)%0A%20%20%20%20_fig.colorbar(_im%2C%20label%3D%22median%20unknown%20fraction%22)%0A%20%20%20%20_ax.set_title(%22Unknown%20fraction%20(clean%20reads)%22)%0A%20%20%20%20_ax%0A%20%20%20%20return%20(u%2C)%0A%0A%0A%40app.cell%0Adef%20_(u)%3A%0A%20%20%20%20%23%20per%20sample%2C%20for%20the%20understudied%20runs%0A%20%20%20%20u%5Bu.group%20%3D%3D%20%22understudied%22%5D.pivot_table(index%3D%22sample%22%2C%20columns%3D%22method%22%2C%20values%3D%22unknown_frac%22).round(2)%0A%20%20%20%20return%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%0A%20%20%20%20%23%23%203.%20How%20much%20do%20the%20methods%20agree%3F%0A%0A%20%20%20%20Mean%20Bray%E2%80%93Curtis%20between%20each%20pair%20of%20methods%2C%20per%20sample%20group%20(0%20%3D%20identical%20genus%20profiles).%20Computed%20here%20from%20%60long_profiles.tsv%60%20rather%20than%20%60pairwise.tsv%60%3A%20the%20pipeline%20pairs%20methods%20within%20one%20arm%2C%20so%20its%20table%20never%20compares%20RawR%20(arm%20%60mgnify%60)%20with%20the%20other%20tools.%20RawR%20runs%20on%20the%20same%20subsampled%20clean%20reads%2C%20so%20it%20is%20treated%20as%20%60clean%60.%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_(long%2C%20np%2C%20plt%2C%20sheet)%3A%0A%20%20%20%20def%20bray(a%2C%20b)%3A%0A%20%20%20%20%20%20%20%20a%2C%20b%20%3D%20a.align(b%2C%20fill_value%3D0)%0A%20%20%20%20%20%20%20%20return%20float((a%20-%20b).abs().sum()%20%2F%20(a%20%2B%20b).sum())%0A%0A%0A%20%20%20%20_cl%20%3D%20long%5Blong.arm.isin(%5B%22clean%22%2C%20%22mgnify%22%5D)%5D%0A%20%20%20%20_prof%20%3D%20%7Bk%3A%20g.set_index(%22genus%22).rel_abund%20for%20k%2C%20g%20in%20_cl.groupby(%5B%22sample%22%2C%20%22method%22%5D)%7D%0A%20%20%20%20_methods%20%3D%20sorted(_cl.method.unique())%0A%20%20%20%20_groups%20%3D%20%5Bg%20for%20g%20in%20%5B%22zymo%22%2C%20%22well_studied%22%2C%20%22understudied%22%5D%20if%20g%20in%20set(_cl.group)%5D%0A%20%20%20%20_fig%2C%20_axes%20%3D%20plt.subplots(1%2C%20len(_groups)%2C%20figsize%3D(4.2%20*%20len(_groups)%2C%203.8))%0A%20%20%20%20for%20_ax%2C%20_g%20in%20zip(np.atleast_1d(_axes)%2C%20_groups)%3A%0A%20%20%20%20%20%20%20%20_smp%20%3D%20sheet.index%5Bsheet.group%20%3D%3D%20_g%5D%0A%20%20%20%20%20%20%20%20_v%20%3D%20np.array(%5B%5Bnp.nanmean(%5Bbray(_prof%5B(s%2C%20a)%5D%2C%20_prof%5B(s%2C%20b)%5D)%20for%20s%20in%20_smp%20if%20(s%2C%20a)%20in%20_prof%20and%20(s%2C%20b)%20in%20_prof%5D%20or%20%5Bnp.nan%5D)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20for%20b%20in%20_methods%5D%20for%20a%20in%20_methods%5D)%0A%20%20%20%20%20%20%20%20_im%20%3D%20_ax.imshow(_v%2C%20cmap%3D%22viridis_r%22%2C%20vmin%3D0%2C%20vmax%3D1)%0A%20%20%20%20%20%20%20%20_ax.set_xticks(range(len(_methods))%2C%20_methods%2C%20rotation%3D90%2C%20fontsize%3D8)%0A%20%20%20%20%20%20%20%20_ax.set_yticks(range(len(_methods))%2C%20_methods%2C%20fontsize%3D8)%0A%20%20%20%20%20%20%20%20_ax.set_title(_g)%0A%20%20%20%20_fig.colorbar(_im%2C%20ax%3D_axes%2C%20label%3D%22mean%20Bray-Curtis%22)%0A%20%20%20%20_fig%0A%20%20%20%20return%20(bray%2C)%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%0A%20%20%20%20%23%23%204.%20Ablation%3A%20what%20do%20QC%20and%20decontamination%20change%3F%0A%0A%20%20%20%20Bray%E2%80%93Curtis%20between%20each%20method's%20profile%20on%20raw%20reads%20and%20on%20clean%20reads%2C%20for%20the%20QC%20cases.%20Needs%20the%20pipeline%20run%20with%20%60--arms%20raw%2Cqc%2Cclean%60.%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_(bray%2C%20long%2C%20mo%2C%20pd%2C%20sheet)%3A%0A%20%20%20%20_arms%20%3D%20set(long.arm)%0A%20%20%20%20if%20%7B%22raw%22%2C%20%22clean%22%7D%20%3C%3D%20_arms%3A%0A%20%20%20%20%20%20%20%20_prof%20%3D%20%7Bk%3A%20g.set_index(%22genus%22).rel_abund%20for%20k%2C%20g%20in%20long.groupby(%5B%22sample%22%2C%20%22arm%22%2C%20%22method%22%5D)%7D%0A%20%20%20%20%20%20%20%20_abl%20%3D%20pd.DataFrame(%5B%7B%22sample%22%3A%20s%2C%20%22method%22%3A%20m%2C%20%22bc_raw_vs_clean%22%3A%20bray(_prof%5B(s%2C%20%22raw%22%2C%20m)%5D%2C%20_prof%5B(s%2C%20%22clean%22%2C%20m)%5D)%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20for%20(s%2C%20arm%2C%20m)%20in%20_prof%20if%20arm%20%3D%3D%20%22raw%22%20and%20(s%2C%20%22clean%22%2C%20m)%20in%20_prof%5D)%0A%20%20%20%20%20%20%20%20_abl%5B%22group%22%5D%20%3D%20_abl%5B%22sample%22%5D.map(sheet.group)%0A%20%20%20%20%20%20%20%20_out%20%3D%20_abl.pivot_table(index%3D%5B%22group%22%2C%20%22sample%22%5D%2C%20columns%3D%22method%22%2C%20values%3D%22bc_raw_vs_clean%22).round(3)%0A%20%20%20%20else%3A%0A%20%20%20%20%20%20%20%20_out%20%3D%20mo.md(f%22Only%20arms%20%7Bsorted(_arms)%7D%3A%20rerun%20the%20pipeline%20with%20%60--arms%20raw%2Cqc%2Cclean%60%20for%20the%20ablation.%22)%0A%20%20%20%20_out%0A%20%20%20%20return%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%0A%20%20%20%20Expected%20(docs%2F04)%3A%20a%20large%20raw-vs-clean%20change%20for%20SRR25246618%20(80%25%20genuine%20human%20DNA)%2C%20and%20near%20zero%20for%20the%20marine%20runs%20if%20their%20decontamination%20loss%20is%20only%20a%20loss%20of%20depth.%20A%20large%20change%20for%20SRR5788065%20would%20mean%20the%20loss%20also%20biases%20composition.%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0Aif%20__name__%20%3D%3D%20%22__main__%22%3A%0A%20%20%20%20app.run()%0A</marimo-code></head>
+  <body>
+    <div id="root"></div>
+    <script data-marimo="true">
+      Object.defineProperty(window, "__MARIMO_MOUNT_CONFIG__", {
+        value: Object.freeze({
+            "filename": "notebook.py",
+            "cwd": "",
+            "lspWorkspace": null,
+            "mode": "edit",
+            "version": "0.25.2",
+            "serverToken": "unused",
+            "config": {"ai": {"allow_provider_config": true, "custom_providers": {}, "enabled": true, "models": {"custom_models": [], "displayed_models": []}}, "completion": {"activate_on_typing": true, "auto_close_pairs": true, "copilot": false, "signature_hint_on_typing": false}, "diagnostics": {"sql_linter": true}, "display": {"cell_output": "below", "code_editor_font_size": 14, "code_lens": true, "dataframes": "rich", "default_table_max_columns": 50, "default_table_page_size": 10, "default_width": "medium", "reference_highlighting": true, "theme": "light"}, "formatting": {"line_length": 79}, "keymap": {"overrides": {}, "preset": "default"}, "language_servers": {"pylsp": {"enable_flake8": false, "enable_mypy": true, "enable_pydocstyle": false, "enable_pyflakes": false, "enable_pylint": false, "enable_ruff": true, "enabled": false}}, "mcp": {"mcpServers": {}, "presets": []}, "package_management": {"manager": "pip"}, "runtime": {"auto_instantiate": false, "auto_reload": "off", "default_csv_encoding": "utf-8", "default_sql_output": "auto", "on_cell_change": "autorun", "output_max_bytes": 8000000, "reactive_tests": true, "show_tracebacks": false, "std_stream_max_bytes": 1000000, "watcher_on_save": "lazy"}, "save": {"autosave": "off", "autosave_delay": 1000, "format_on_save": false}, "server": {"browser": "default", "follow_symlink": false}, "snippets": {"custom_paths": [], "include_default_snippets": true}},
+            "configOverrides": {},
+            "appConfig": {"app_title": "05: profiler comparison", "sql_output": "auto", "width": "medium"},
+            "layout": null,
+            "view": {"showAppCode": false},
+            "notebook": null,
+            "session": null,
+            "runtimeConfig": null
+        }),
+        writable: false,
+        configurable: false,
+      });
+    </script>
+  </body>
+</html>
